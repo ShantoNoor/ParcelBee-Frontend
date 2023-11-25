@@ -34,6 +34,7 @@ const settings = [
   ["Account", "/account"],
   ["SignOut", "/sign-out"],
 ];
+/* TODO: roll based dashbord and links */
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -67,6 +68,10 @@ function Navbar() {
   };
 
   const navigateHome = () => navigate("/");
+
+/* TODO: add notifications from db */
+
+
 
   return (
     <AppBar position="sticky" >

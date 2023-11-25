@@ -9,6 +9,7 @@ const Home = () => {
       <Box my={8}>
         <Features />
       </Box>
+      {/* TODO: Top 5 delivery man info */}
     </>
   );
 };

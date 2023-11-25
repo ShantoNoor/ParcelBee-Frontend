@@ -14,6 +14,9 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import MailLockIcon from "@mui/icons-material/MailLock";
 
 import CountUp from "react-countup";
+  
+/* TODO: fetch stats from db and show */
+
 
 const tiers = [
   {
@@ -34,10 +37,9 @@ const tiers = [
     description:
       "Speed redefined. Experience lightning-fast delivery options tailored to your needs. Get your parcels swiftly with our expedited shipping, promising unparalleled efficiency.",
   },
-
   {
     title: "Total Parcel Booked",
-    show: <CountUp start={0} end={100} enableScrollSpy={true} duration={2}/>,
+    show: <CountUp start={0} end={100} enableScrollSpy={true} scrollSpyOnce={true} duration={2}/>,
   },
   {
     title: "Total Parcel Delivered",
@@ -45,7 +47,7 @@ const tiers = [
   },
   {
     title: "Total Registered Users",
-    show: <CountUp start={0} end={20} enableScrollSpy={true} duration={2}/>,
+    show: <CountUp start={0} end={20} enableScrollSpy={true} scrollSpyOnce={true} duration={2}/>,
   },
 ];
 const Features = () => {

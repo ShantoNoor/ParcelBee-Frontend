@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "./Link";
-import { Link as _Link } from "react-router-dom";
+import { Link as _Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
@@ -25,6 +25,9 @@ const LogoIcon = styled(ShoppingBagIcon)();
 const logoText = "ParcelBee";
 
 const Footer = () => {
+  const navigate = useNavigate()
+  const navigateHome = () => navigate("/");
+
   return (
     <Container>
       <Box>
@@ -37,15 +40,24 @@ const Footer = () => {
               alignItems={"center"}
             >
               <LogoIcon
-                // onClick={navigateHome}
+                onClick={navigateHome}
                 cursor={"pointer"}
-                sx={{ fontSize: { md: "3rem", xs: "2rem" } }}
+                sx={{ fontSize: { xs: "3rem" } }}
               />
               <Typography
                 variant="h6"
                 mb={1}
-                fontSize={{ md: "2rem", xs: "1rem" }}
-                // onClick={navigateHome}
+                fontSize={{ xs: "2rem" }}
+                onClick={navigateHome}
+                sx={{
+                  mr: 2,
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                  flexGrow: 1,
+                }}
               >
                 {logoText}
               </Typography>

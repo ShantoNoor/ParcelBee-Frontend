@@ -8,6 +8,9 @@ import { useState } from "react";
 const Banner = () => {
   const [st, sst] = useState('')
 
+/* TODO: implement parcel show tracing by id */
+
+
   return (
     <Box
       sx={{
