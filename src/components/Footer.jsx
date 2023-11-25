@@ -26,76 +26,73 @@ const logoText = "ParcelBee";
 
 const Footer = () => {
   return (
-    <Paper variant="outlined" square>
-      <Container>
-        <Box>
-          <Stack direction={{ md: "row" }} gap={5} my={2}>
-            <Box flex={1}>
-              <Box
-                display={"flex"}
-                gap={1}
-                flexDirection={"row"}
-                alignItems={"center"}
+    <Container>
+      <Box>
+        <Stack direction={{ md: "row" }} gap={5} my={2}>
+          <Box flex={1}>
+            <Box
+              display={"flex"}
+              gap={1}
+              flexDirection={"row"}
+              alignItems={"center"}
+            >
+              <LogoIcon
+                // onClick={navigateHome}
+                cursor={"pointer"}
+                sx={{ fontSize: { md: "3rem", xs: "2rem" } }}
+              />
+              <Typography
+                variant="h6"
+                mb={1}
+                fontSize={{ md: "2rem", xs: "1rem" }}
+                // onClick={navigateHome}
               >
-                <LogoIcon
-                  // onClick={navigateHome}
-                  cursor={"pointer"}
-                  sx={{ fontSize: { md: "3rem", xs: "2rem" } }}
-                />
-                <Typography
-                  variant="h6"
-                  mb={1}
-                  fontSize={{ md: "2rem", xs: "1rem" }}
-                  // onClick={navigateHome}
-                >
-                  {logoText}
-                </Typography>
-              </Box>
+                {logoText}
+              </Typography>
+            </Box>
 
-              <Stack direction={"column"} divider={<Divider variant="middle" />} p={1}>
-                <Link>Home</Link>
-                <Link>About</Link>
-                <Link>Contact Us</Link>
-                <Link>Sign Up</Link>
-              </Stack>
+            <Stack
+              direction={"column"}
+              divider={<Divider variant="middle" />}
+              p={1}
+            >
+              <Link>Home</Link>
+              <Link>About</Link>
+              <Link>Contact Us</Link>
+              <Link>Sign Up</Link>
+            </Stack>
+          </Box>
+          <Box flex={2}>
+            <Typography variant="h6" mb={1}>
+              Subscribe to Newletter
+            </Typography>
+            <Box>
+              <TextField size="small" fullWidth label="Email" id="fullWidth" />
             </Box>
-            <Box flex={2}>
-              <Typography variant="h6" mb={1}>
-                Subscribe to Newletter
-              </Typography>
-              <Box>
-                <TextField
-                  size="small"
-                  fullWidth
-                  label="Email"
-                  id="fullWidth"
-                />
-              </Box>
-              <Box align="center" mt={1}>
-                <Button variant="contained">Subscribe</Button>
-              </Box>
+            <Box align="center" mt={1}>
+              <Button variant="contained">Subscribe</Button>
             </Box>
-            <Box flex={1}>
-              <Typography variant="h6" mb={1}>
-                Social Links
-              </Typography>
-              <Stack
-                direction={"row"}
-                gap={1}
-                divider={<Divider orientation="vertical" flexItem />}
-              >
-                <GoogleIcon />
-                <FacebookIcon />
-                <LinkedInIcon />
-                <InstagramIcon />
-              </Stack>
-            </Box>
-          </Stack>
-          <Divider />
-          <Copyright my={3} />
-        </Box>
-      </Container>
-    </Paper>
+          </Box>
+          <Box flex={1}>
+            <Typography variant="h6" mb={1}>
+              Social Links
+            </Typography>
+            <Stack
+              direction={"row"}
+              gap={1}
+              divider={<Divider orientation="vertical" flexItem />}
+            >
+              <GoogleIcon />
+              <FacebookIcon />
+              <LinkedInIcon />
+              <InstagramIcon />
+            </Stack>
+          </Box>
+        </Stack>
+        <Divider />
+        <Copyright my={3} />
+      </Box>
+    </Container>
   );
 };
 

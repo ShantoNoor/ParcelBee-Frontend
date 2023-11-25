@@ -12,7 +12,7 @@ const Banner = () => {
     <Box
       sx={{
         background:
-          "url(https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-delivery-banner-poster-background-image_12237.jpg)",
+          "url(https://static.vecteezy.com/system/resources/previews/005/237/759/non_2x/delivery-man-checking-package-address-the-delivery-man-prepares-to-deliver-the-parcel-illustration-vector.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -29,7 +29,7 @@ const Banner = () => {
         <Typography variant="h1">Track Your Parcel</Typography>
         <TextField
           fullWidth
-          label="Type Your Order ID ..."
+          label="Type Your Parcel ID ..."
           sx={{ display: "block", marginBottom: "10px" }}
           variant="filled"
           onChange={(e) => sst(e.target.value)}

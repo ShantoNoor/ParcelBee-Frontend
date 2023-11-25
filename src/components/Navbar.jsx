@@ -69,7 +69,7 @@ function Navbar() {
   const navigateHome = () => navigate("/");
 
   return (
-    <AppBar position="sticky" elevation={0}>
+    <AppBar position="sticky" >
       <Container>
         <Toolbar disableGutters={true}>
           <LogoIcon
