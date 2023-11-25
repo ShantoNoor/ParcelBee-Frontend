@@ -26,7 +26,7 @@ const logoText = "ParcelBee";
 
 const Footer = () => {
   return (
-    <Paper variant="outlined">
+    <Paper variant="outlined" square>
       <Container>
         <Box>
           <Stack direction={{ md: "row" }} gap={5} my={2}>
