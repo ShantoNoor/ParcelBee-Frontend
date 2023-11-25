@@ -25,12 +25,21 @@ const LogoIcon = styled(ShoppingBagIcon)();
 const logoText = "ParcelBee";
 
 const Footer = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const navigateHome = () => navigate("/");
 
   return (
-    <Container>
-      <Box>
+    <Box
+      py={2}
+      sx={{
+        background:
+          "url(https://img.freepik.com/premium-photo/white-background-with-line-colorful-lines-that-say-smart_644836-205.jpg?w=2000)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <Container>
         <Stack direction={{ md: "row" }} gap={5} my={2}>
           <Box flex={1}>
             <Box
@@ -79,7 +88,7 @@ const Footer = () => {
               Subscribe to Newletter
             </Typography>
             <Box>
-              <TextField size="small" fullWidth label="Email" id="fullWidth" />
+              <TextField size="small" variant="filled" fullWidth label="Email" id="fullWidth" />
             </Box>
             <Box align="center" mt={1}>
               <Button variant="contained">Subscribe</Button>
@@ -103,8 +112,8 @@ const Footer = () => {
         </Stack>
         <Divider />
         <Copyright my={3} />
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

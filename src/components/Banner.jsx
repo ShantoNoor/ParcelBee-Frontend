@@ -15,7 +15,7 @@ const Banner = () => {
     <Box
       sx={{
         background:
-          "url(https://static.vecteezy.com/system/resources/previews/005/237/759/non_2x/delivery-man-checking-package-address-the-delivery-man-prepares-to-deliver-the-parcel-illustration-vector.jpg)",
+          "url(https://1021sunrise.com/wp-content/uploads/2017/06/Courier-Service-1024x683.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",

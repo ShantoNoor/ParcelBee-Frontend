@@ -1,22 +1,22 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Grid from "@mui/material/Grid";
-import StarIcon from "@mui/icons-material/StarBorder";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import NotListedLocationIcon from "@mui/icons-material/NotListedLocation";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import MailLockIcon from "@mui/icons-material/MailLock";
+import PeopleIcon from "@mui/icons-material/People";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import CountUp from "react-countup";
-  
-/* TODO: fetch stats from db and show */
+import Stack from "@mui/material/Stack";
 
+/* TODO: fetch stats from db and show */
 
 const tiers = [
   {
@@ -39,15 +39,63 @@ const tiers = [
   },
   {
     title: "Total Parcel Booked",
-    show: <CountUp start={0} end={100} enableScrollSpy={true} scrollSpyOnce={true} duration={2}/>,
+    show: (
+      <Stack
+        direction={"row"}
+        justifyContent="space-evenly"
+        alignItems="center"
+        spacing={4}
+      >
+        <BookmarkIcon sx={{ fontSize: "56px" }} color="primary" />
+        <CountUp
+          start={0}
+          end={100}
+          enableScrollSpy={true}
+          scrollSpyOnce={true}
+          duration={2}
+        />
+      </Stack>
+    ),
   },
   {
     title: "Total Parcel Delivered",
-    show: <CountUp start={0} end={50} enableScrollSpy={true} scrollSpyOnce={true} duration={2}/>,
+    show: (
+      <Stack
+        direction={"row"}
+        justifyContent="space-evenly"
+        alignItems="center"
+        spacing={4}
+      >
+        <DeliveryDiningIcon sx={{ fontSize: "56px" }} color="primary" />
+        <CountUp
+          start={0}
+          end={50}
+          enableScrollSpy={true}
+          scrollSpyOnce={true}
+          duration={2}
+        />
+      </Stack>
+    ),
   },
   {
     title: "Total Registered Users",
-    show: <CountUp start={0} end={20} enableScrollSpy={true} scrollSpyOnce={true} duration={2}/>,
+    show: (
+      <Stack
+        direction={"row"}
+        justifyContent="space-evenly"
+        alignItems="center"
+        spacing={4}
+      >
+        <PeopleIcon sx={{ fontSize: "56px" }} color="primary" />
+        <CountUp
+          start={0}
+          end={20}
+          enableScrollSpy={true}
+          scrollSpyOnce={true}
+          duration={2}
+        />
+      </Stack>
+    ),
   },
 ];
 const Features = () => {
@@ -84,9 +132,11 @@ const Features = () => {
                     {tier.show}
                   </Typography>
                 </Box>
-                <Typography component="p" variant="body1" align="left">
-                  {tier.description}
-                </Typography>
+                {tier.description && (
+                  <Typography component="p" variant="body1" align="left">
+                    {tier.description}
+                  </Typography>
+                )}
               </CardContent>
             </Card>
           </Grid>
