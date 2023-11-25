@@ -1,72 +1,113 @@
-import { Container, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  TextField,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import Link from "./Link";
+import { Link as _Link } from "react-router-dom";
+import styled from "@emotion/styled";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
-const footers = [
-  {
-    title: 'Company',
-    description: ['Team', 'History', 'Contact us', 'Locations'],
-  },
-  {
-    title: 'Features',
-    description: [
-      'Cool stuff',
-      'Random feature',
-      'Team feature',
-      'Developer stuff',
-      'Another one',
-    ],
-  },
-  {
-    title: 'Resources',
-    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
-  },
-  {
-    title: 'Legal',
-    description: ['Privacy policy', 'Terms of use'],
-  },
-];
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import InstagramIcon from "@mui/icons-material/Instagram";
+
+const LogoIcon = styled(ShoppingBagIcon)();
+const logoText = "ParcelBee";
 
 const Footer = () => {
   return (
-    <Container
-      component="footer"
-      sx={{
-        mt: 8,
-        py: [3, 6],
-      }}
-    >
-      <Grid container spacing={4} justifyContent="space-evenly">
-        {footers.map((footer) => (
-          <Grid item xs={6} sm={3} key={footer.title}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
-              {footer.title}
-            </Typography>
-            <ul>
-              {footer.description.map((item) => (
-                <li key={item}>
-                  <Link href="#" variant="subtitle1" color="text.secondary">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Grid>
-        ))}
-      </Grid>
-      <Copyright sx={{ mt: 5 }} />
-    </Container>
+    <Paper variant="outlined">
+      <Container>
+        <Box>
+          <Stack direction={{ md: "row" }} gap={5} my={2}>
+            <Box flex={1}>
+              <Box
+                display={"flex"}
+                gap={1}
+                flexDirection={"row"}
+                alignItems={"center"}
+              >
+                <LogoIcon
+                  // onClick={navigateHome}
+                  cursor={"pointer"}
+                  sx={{ fontSize: { md: "3rem", xs: "2rem" } }}
+                />
+                <Typography
+                  variant="h6"
+                  mb={1}
+                  fontSize={{ md: "2rem", xs: "1rem" }}
+                  // onClick={navigateHome}
+                >
+                  {logoText}
+                </Typography>
+              </Box>
+
+              <Stack direction={"column"} divider={<Divider variant="middle" />} p={1}>
+                <Link>Home</Link>
+                <Link>About</Link>
+                <Link>Contact Us</Link>
+                <Link>Sign Up</Link>
+              </Stack>
+            </Box>
+            <Box flex={2}>
+              <Typography variant="h6" mb={1}>
+                Subscribe to Newletter
+              </Typography>
+              <Box>
+                <TextField
+                  size="small"
+                  fullWidth
+                  label="Email"
+                  id="fullWidth"
+                />
+              </Box>
+              <Box align="center" mt={1}>
+                <Button variant="contained">Subscribe</Button>
+              </Box>
+            </Box>
+            <Box flex={1}>
+              <Typography variant="h6" mb={1}>
+                Social Links
+              </Typography>
+              <Stack
+                direction={"row"}
+                gap={1}
+                divider={<Divider orientation="vertical" flexItem />}
+              >
+                <GoogleIcon />
+                <FacebookIcon />
+                <LinkedInIcon />
+                <InstagramIcon />
+              </Stack>
+            </Box>
+          </Stack>
+          <Divider />
+          <Copyright my={3} />
+        </Box>
+      </Container>
+    </Paper>
   );
 };
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
+    <Typography variant="body2" align="center" {...props}>
+      {"Copyright © "}
+      <Typography variant="span" color={"primary"}>
+        <Link to={"/"}>ParcelBee</Link>{" "}
+      </Typography>
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
