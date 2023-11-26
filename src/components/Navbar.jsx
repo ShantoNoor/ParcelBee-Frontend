@@ -166,7 +166,7 @@ function Navbar() {
             sx={{
               display: { xs: "flex", md: "none" },
               mr: 1,
-              flexGrow: { xs: 1, sm: 0 },
+              flexGrow: { xs: 0, sm: 0 },
             }}
           />
           <Typography
@@ -176,7 +176,7 @@ function Navbar() {
             cursor={"pointer"}
             sx={{
               mr: 2,
-              display: { xs: "none", sm: "flex", md: "none" },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,

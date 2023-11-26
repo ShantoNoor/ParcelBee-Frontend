@@ -26,6 +26,8 @@ import Animation from "../assets/animations/sign-up.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { axiosn } from "../hooks/useAxios";
+import toast from "react-hot-toast";
 
 const Player = React.lazy(() =>
   import("@lottiefiles/react-lottie-player").then((module) => {
@@ -52,10 +54,18 @@ export default function SignUp() {
     event.preventDefault();
   };
 
-  const formSubmit = (data) => {
-    signUp(data.name, data.email, data.password)
-      .then(() => updateProfile(data.name, ""))
-      .then(() => navigate("/"));
+  const formSubmit = async (data) => {
+    try {
+      const res = await axiosn.post("/users", data);
+      if (res.status === 201) {
+        await signUp(data.name, data.email, data.password);
+        await updateProfile(data.name, "");
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.response?.data)
+    }
   };
 
   return (
