@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "./Link";
-import { Link as _Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
@@ -74,13 +74,12 @@ const Footer = () => {
 
             <Stack
               direction={"column"}
-              divider={<Divider variant="middle" />}
+              divider={<Divider  />}
               p={1}
             >
-              <Link>Home</Link>
-              <Link>About</Link>
-              <Link>Contact Us</Link>
-              <Link>Sign Up</Link>
+              <Link to="/" underline={"hover"}>Home</Link>
+              <Link underline={"hover"}>About</Link>
+              <Link underline={"hover"}>Contact Us</Link>
             </Stack>
           </Box>
           <Box flex={2}>
@@ -88,7 +87,13 @@ const Footer = () => {
               Subscribe to Newletter
             </Typography>
             <Box>
-              <TextField size="small" variant="filled" fullWidth label="Email" id="fullWidth" />
+              <TextField
+                size="small"
+                variant="filled"
+                fullWidth
+                label="Email"
+                id="fullWidth"
+              />
             </Box>
             <Box align="center" mt={1}>
               <Button variant="contained">Subscribe</Button>
@@ -103,10 +108,18 @@ const Footer = () => {
               gap={1}
               divider={<Divider orientation="vertical" flexItem />}
             >
-              <GoogleIcon />
-              <FacebookIcon />
-              <LinkedInIcon />
-              <InstagramIcon />
+              <Link to='https://google.com'>
+                <GoogleIcon />
+              </Link>
+              <Link to='https://facebook.com'>
+                <FacebookIcon />
+              </Link>
+              <Link to='https://linkedin.com'>
+                <LinkedInIcon />
+              </Link>
+              <Link to='https://instagram.com'>
+                <InstagramIcon />
+              </Link>
             </Stack>
           </Box>
         </Stack>

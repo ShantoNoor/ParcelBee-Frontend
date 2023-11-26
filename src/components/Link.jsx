@@ -1,9 +1,14 @@
-import styled from "@emotion/styled";
-import { Link as _Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import MuiLink from "@mui/material/Link";
 
-const Link = styled(_Link)({
-  color: "inherit",
-  textDecoration: "none",
-});
+const Link = ({ children, underline, to }) => {
+  // const  = props;
+
+  return (
+    <RouterLink to={to} style={{textDecoration: 'none'}}>
+      <MuiLink underline={underline}>{children}</MuiLink>
+    </RouterLink>
+  );
+};
 
 export default Link;
