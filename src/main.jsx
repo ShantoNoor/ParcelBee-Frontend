@@ -17,6 +17,8 @@ import AuthProvider from "./components/AuthProvider.jsx";
 import SignOut from "./pages/SignOut.jsx";
 import { Toaster } from "react-hot-toast";
 
+// TODO: Design a error page
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-out",
-    element: <SignOut />
+    element: <SignOut />,
   },
 ]);
 

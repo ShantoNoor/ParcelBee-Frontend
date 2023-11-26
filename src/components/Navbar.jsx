@@ -15,8 +15,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Badge, Chip, Divider } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
+import Badge from "@mui/material/Badge";
+import Divider from "@mui/material/Divider";
+import deepOrange from "@mui/material/colors/deepOrange";
 import NotificationList from "./NotificationList";
 import useAuth from "../hooks/useAuth";
 
@@ -250,7 +251,7 @@ function Navbar() {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}
-                    alt={user.displayName[0].toUpperCase()}
+                    alt={user.displayName}
                     src={user.photoURL || user.displayName}
                   />
                 </IconButton>
@@ -273,12 +274,14 @@ function Navbar() {
               >
                 {user && (
                   <Box textAlign={"center"}>
-                    {/* <Chip
-                      // component="h1"
-                      label=
-                      variant="outlined"
-                    /> */}
-                    <Typography variant="h6" component='span' color={deepOrange[500]}>{user.displayName}</Typography>
+                    <Typography
+                      variant="h6"
+                      component="span"
+                      color={deepOrange[500]}
+                      p={2}
+                    >
+                      {user.displayName}
+                    </Typography>
                     <Divider variant="middle" />
                   </Box>
                 )}

@@ -26,7 +26,7 @@ import SocialLogin from "../components/SocialLogin";
 import Animation from "../assets/animations/sign-in.json";
 
 import { useForm } from "react-hook-form";
-import useAuth from "../hooks/useAuth"
+import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Player = React.lazy(() =>
@@ -36,7 +36,6 @@ const Player = React.lazy(() =>
 );
 
 export default function SignIn() {
-  const [animation, setAnimation] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -127,7 +126,7 @@ export default function SignIn() {
           <Box
             component="form"
             onSubmit={handleSubmit(formSubmit)}
-            sx={{ mt: 1, width: '100%' }}
+            sx={{ mt: 1, width: "100%" }}
           >
             <Stack spacing={1}>
               <Box>
@@ -184,7 +183,6 @@ export default function SignIn() {
                       },
                     })}
                   />
-                  {console.log(errors.password)}
                 </FormControl>
                 <Typography component={"p"} color={"error"} role="alert">
                   {errors?.password?.message}
