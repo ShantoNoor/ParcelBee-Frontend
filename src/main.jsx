@@ -11,9 +11,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout.jsx";
 import Home from "./pages/Home.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import Features from "./components/Features.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
+import AuthProvider from "./components/AuthProvider.jsx";
+import SignOut from "./pages/SignOut.jsx";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -29,20 +31,26 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
     ],
-    
   },
   {
     path: "/sign-in",
-    element: <SignIn />
+    element: <SignIn />,
   },
   {
     path: "/sign-up",
-    element: <SignUp />
+    element: <SignUp />,
+  },
+  {
+    path: "/sign-out",
+    element: <SignOut />
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
+    <Toaster />
   </React.StrictMode>
 );

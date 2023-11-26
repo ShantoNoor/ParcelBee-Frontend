@@ -15,9 +15,10 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Badge } from "@mui/material";
+import { Badge, Chip, Divider } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import NotificationList from "./NotificationList";
+import useAuth from "../hooks/useAuth";
 
 const LogoIcon = styled(ShoppingBagIcon)();
 const logoText = "ParcelBee";
@@ -25,14 +26,17 @@ const logoText = "ParcelBee";
 const pages = [
   ["Home", "/"],
   ["Dashboard", "/dashboard"],
+];
+
+const authPages = [
   ["Sing In", "/sign-in"],
   ["Sing Up", "/sign-up"],
 ];
+
 const settings = [
-  ["Profile", "/profile"],
   ["Dashboard", "/dashboard"],
-  ["Account", "/account"],
-  ["SignOut", "/sign-out"],
+  ["Profile", "/profile"],
+  ["Sign Out", "/sign-out"],
 ];
 /* TODO: roll based dashbord and links */
 
@@ -69,12 +73,22 @@ function Navbar() {
 
   const navigateHome = () => navigate("/");
 
-/* TODO: add notifications from db */
+  /* TODO: add notifications from db */
 
+  const { user } = useAuth();
 
+  let [renderPages, setRenderPages] = React.useState([]);
+
+  React.useEffect(() => {
+    if (user) {
+      setRenderPages([...pages]);
+    } else {
+      setRenderPages([...pages, ...authPages]);
+    }
+  }, [user]);
 
   return (
-    <AppBar position="sticky" >
+    <AppBar position="sticky">
       <Container>
         <Toolbar disableGutters={true}>
           <LogoIcon
@@ -130,7 +144,7 @@ function Navbar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {renderPages.map((page) => (
                 <MenuItem
                   key={page}
                   onClick={() => {
@@ -148,7 +162,11 @@ function Navbar() {
           <LogoIcon
             onClick={navigateHome}
             cursor={"pointer"}
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1, flexGrow: {xs: 1, sm: 0} }}
+            sx={{
+              display: { xs: "flex", md: "none" },
+              mr: 1,
+              flexGrow: { xs: 1, sm: 0 },
+            }}
           />
           <Typography
             variant="h5"
@@ -157,7 +175,7 @@ function Navbar() {
             cursor={"pointer"}
             sx={{
               mr: 2,
-              display: { xs: 'none', sm: "flex", md: "none" },
+              display: { xs: "none", sm: "flex", md: "none" },
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,
@@ -177,7 +195,7 @@ function Navbar() {
               marginRight: "5px",
             }}
           >
-            {pages.map((page) => (
+            {renderPages.map((page) => (
               <Button
                 key={page}
                 onClick={() => navigate(page[1])}
@@ -188,86 +206,98 @@ function Navbar() {
                   ":hover": { backgroundColor: "rgba(0,0,0,0.04)" },
                   backgroundColor:
                     pathname === page[1] ? "rgba(0,0,0,0.04)" : "",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {page[0]}
               </Button>
             ))}
           </Box>
-
-          {/* UserIcon */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Show Notifications">
-              <IconButton
-                color="inherit"
-                size="large"
-                onClick={handleOpenUserNotification}
-                sx={{ p: 0, mr: 2 }}
-              >
-                <Badge badgeContent={3} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElNotification}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElNotification)}
-              onClose={handleCloseUserNotification}
-            >
-              <NotificationList />
-            </Menu>
-
-            <Tooltip title="Show Settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}
-                  alt="Sk"
-                  src="/static/images/avatar/2.jpg"
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => {
-                    handleCloseUserMenu();
-                    navigate(setting[1]);
-                  }}
-                  selected={pathname === setting[1]}
+          {user && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Show Notifications">
+                <IconButton
+                  color="inherit"
+                  size="large"
+                  onClick={handleOpenUserNotification}
+                  sx={{ p: 0, mr: 2 }}
                 >
-                  <Typography textAlign="center">{setting[0]}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                  <Badge badgeContent={3} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElNotification}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElNotification)}
+                onClose={handleCloseUserNotification}
+              >
+                <NotificationList />
+              </Menu>
+
+              <Tooltip title="Show Settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}
+                    alt={user.displayName[0].toUpperCase()}
+                    src={user.photoURL || user.displayName}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {user && (
+                  <Box textAlign={"center"}>
+                    {/* <Chip
+                      // component="h1"
+                      label=
+                      variant="outlined"
+                    /> */}
+                    <Typography variant="h6" component='span' color={deepOrange[500]}>{user.displayName}</Typography>
+                    <Divider variant="middle" />
+                  </Box>
+                )}
+
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      navigate(setting[1]);
+                    }}
+                    selected={pathname === setting[1]}
+                  >
+                    <Typography textAlign="center">{setting[0]}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

@@ -26,6 +26,8 @@ import SocialLogin from "../components/SocialLogin";
 import Animation from "../assets/animations/sign-in.json";
 
 import { useForm } from "react-hook-form";
+import useAuth from "../hooks/useAuth"
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Player = React.lazy(() =>
   import("@lottiefiles/react-lottie-player").then((module) => {
@@ -39,6 +41,10 @@ export default function SignIn() {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const { signIn } = useAuth();
+  const { state } = useLocation();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -50,7 +56,15 @@ export default function SignIn() {
   };
 
   const formSubmit = (data) => {
-    console.log(data);
+    signIn(data.email, data.password).then(() => {
+      if (state?.pathname) {
+        navigate(state.pathname, {
+          state: { title: state.title },
+        });
+      } else {
+        navigate("/");
+      }
+    });
   };
 
   return (
@@ -138,7 +152,7 @@ export default function SignIn() {
               <Box>
                 <FormControl sx={{ mt: 1, width: "100%" }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
-                    Password *
+                    Password
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
@@ -155,7 +169,7 @@ export default function SignIn() {
                         </IconButton>
                       </InputAdornment>
                     }
-                    label="Password *"
+                    label="Password"
                     {...register("password", {
                       required: "Password is required",
                       minLength: {

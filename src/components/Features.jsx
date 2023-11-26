@@ -50,7 +50,7 @@ const tiers = [
         <CountUp
           start={0}
           end={100}
-          enableScrollSpy={true}
+          // enableScrollSpy={true}
           scrollSpyOnce={true}
           duration={2}
         />
@@ -70,7 +70,7 @@ const tiers = [
         <CountUp
           start={0}
           end={50}
-          enableScrollSpy={true}
+          // enableScrollSpy={true}
           scrollSpyOnce={true}
           duration={2}
         />
@@ -90,7 +90,7 @@ const tiers = [
         <CountUp
           start={0}
           end={20}
-          enableScrollSpy={true}
+          // enableScrollSpy={true}
           scrollSpyOnce={true}
           duration={2}
         />

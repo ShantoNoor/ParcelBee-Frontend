@@ -20,10 +20,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Divider, Stack } from "@mui/material";
 import SocialLogin from "../components/SocialLogin";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
 import Animation from "../assets/animations/sign-up.json";
 
 import { useForm } from "react-hook-form";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Player = React.lazy(() =>
   import("@lottiefiles/react-lottie-player").then((module) => {
@@ -43,12 +45,17 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
+  const { signUp, updateProfile } = useAuth();
+  const navigate = useNavigate();
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
   const formSubmit = (data) => {
-    console.log(data);
+    signUp(data.name, data.email, data.password)
+      .then(() => updateProfile(data.name, ""))
+      .then(() => navigate("/"));
   };
 
   return (
@@ -86,7 +93,7 @@ export default function SignUp() {
               autoplay
               loop
               src={Animation}
-              style={{ height: "100%", width: "100%" }}
+              style={{ maxWidth: "450px" }}
             />
           }
         </React.Suspense>
@@ -153,7 +160,7 @@ export default function SignUp() {
               <Box>
                 <FormControl sx={{ width: "100%" }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
-                    Password *
+                    Password
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
@@ -170,7 +177,7 @@ export default function SignUp() {
                         </IconButton>
                       </InputAdornment>
                     }
-                    label="Password *"
+                    label="Password"
                     {...register("password", {
                       required: "Password is required",
                       minLength: {
@@ -179,7 +186,7 @@ export default function SignUp() {
                       },
                       pattern: {
                         value:
-                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])[A-Za-z\d!@#$%^&*()\-_=+{};:,<.>]{8,}$/,
+                          /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>])[A-Za-z\d!@#$%^&*()\-_=+{};:,<.>]/,
                         message:
                           "Password shoud contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
                       },
@@ -188,6 +195,24 @@ export default function SignUp() {
                 </FormControl>
                 <Typography component={"p"} color={"error"} role="alert">
                   {errors?.password?.message}
+                </Typography>
+              </Box>
+
+              <Box>
+                <TextField
+                  fullWidth
+                  label="Phone Number"
+                  type="tel"
+                  {...register("phone", {
+                    required: "Phone Number is required",
+                    pattern: {
+                      value: /^\d{6,14}$/,
+                      message: "Enter a valid phone number.",
+                    },
+                  })}
+                />
+                <Typography component={"p"} color={"error"} role="alert">
+                  {errors?.phone?.message}
                 </Typography>
               </Box>
             </Stack>
