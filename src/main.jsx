@@ -12,6 +12,7 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import Home from "./pages/Home.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Features from "./components/Features.jsx";
+import SignIn from "./pages/SignIn.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,12 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
     ],
-  }
+    
+  },
+  {
+    path: "/sign-in",
+    element: <SignIn />
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

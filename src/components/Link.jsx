@@ -6,7 +6,7 @@ const Link = ({ children, underline, to }) => {
 
   return (
     <RouterLink to={to} style={{textDecoration: 'none'}}>
-      <MuiLink underline={underline}>{children}</MuiLink>
+      <MuiLink component='span' underline={underline}>{children}</MuiLink>
     </RouterLink>
   );
 };

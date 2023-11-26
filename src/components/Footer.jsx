@@ -20,6 +20,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import Copyright from "./Copyright";
 
 const LogoIcon = styled(ShoppingBagIcon)();
 const logoText = "ParcelBee";
@@ -51,7 +52,7 @@ const Footer = () => {
               <LogoIcon
                 onClick={navigateHome}
                 cursor={"pointer"}
-                sx={{ fontSize: { xs: "3rem" } }}
+                sx={{ fontSize: { xs: "3rem" }, color: (theme) => theme.palette.warning.main, }}
               />
               <Typography
                 variant="h6"
@@ -63,7 +64,7 @@ const Footer = () => {
                   fontFamily: "monospace",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
-                  color: "inherit",
+                  color: (theme) => theme.palette.warning.main,
                   textDecoration: "none",
                   flexGrow: 1,
                 }}
@@ -129,18 +130,5 @@ const Footer = () => {
     </Box>
   );
 };
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" align="center" {...props}>
-      {"Copyright © "}
-      <Typography variant="span" color={"primary"}>
-        <Link to={"/"}>ParcelBee</Link>{" "}
-      </Typography>
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 export default Footer;
