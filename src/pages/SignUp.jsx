@@ -3,12 +3,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Link from "../components/Link";
 import Copyright from "../components/Copyright";
@@ -23,7 +20,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Divider, Stack } from "@mui/material";
 import SocialLogin from "../components/SocialLogin";
-import Animation from "../assets/animations/sign-in.json";
+import PersonIcon from '@mui/icons-material/Person';
+import Animation from "../assets/animations/sign-up.json";
 
 import { useForm } from "react-hook-form";
 
@@ -33,7 +31,7 @@ const Player = React.lazy(() =>
   })
 );
 
-export default function SignIn() {
+export default function SignUp() {
   const [animation, setAnimation] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -105,7 +103,7 @@ export default function SignIn() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+            <PersonIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign In
@@ -113,15 +111,32 @@ export default function SignIn() {
           <Box
             component="form"
             onSubmit={handleSubmit(formSubmit)}
-            sx={{ mt: 1, width: '100%' }}
+            sx={{ mt: 1, width: "100%" }}
           >
-            <Stack spacing={1}>
+            <Stack spacing={2}>
+              <Box>
+                <TextField
+                  fullWidth
+                  label="Name"
+                  autoFocus
+                  {...register("name", {
+                    required: "Name is required",
+                    minLength: {
+                      value: 3,
+                      message: "Name shoud have at least 3 characters",
+                    },
+                  })}
+                />
+                <Typography component={"p"} color={"error"} role="alert">
+                  {errors?.name?.message}
+                </Typography>
+              </Box>
+
               <Box>
                 <TextField
                   fullWidth
                   label="Email Address"
                   autoComplete="email"
-                  autoFocus
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -136,7 +151,7 @@ export default function SignIn() {
               </Box>
 
               <Box>
-                <FormControl sx={{ mt: 1, width: "100%" }} variant="outlined">
+                <FormControl sx={{ width: "100%" }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
                     Password *
                   </InputLabel>
@@ -170,35 +185,30 @@ export default function SignIn() {
                       },
                     })}
                   />
-                  {console.log(errors.password)}
                 </FormControl>
                 <Typography component={"p"} color={"error"} role="alert">
                   {errors?.password?.message}
                 </Typography>
               </Box>
             </Stack>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-              {...register("tct")}
-            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
-                <Link to="/sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link to="/sign-in" variant="body2">
+                  {"Already have an account? Sign In"}
                 </Link>
               </Grid>
             </Grid>

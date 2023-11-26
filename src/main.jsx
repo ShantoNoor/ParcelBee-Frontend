@@ -13,6 +13,7 @@ import Home from "./pages/Home.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Features from "./components/Features.jsx";
 import SignIn from "./pages/SignIn.jsx";
+import SignUp from "./pages/SignUp.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/sign-in",
     element: <SignIn />
+  },
+  {
+    path: "/sign-up",
+    element: <SignUp />
   },
 ]);
 
