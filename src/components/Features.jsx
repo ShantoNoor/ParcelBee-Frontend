@@ -101,7 +101,7 @@ const tiers = [
 const Features = () => {
   return (
     <Container component="main">
-      <Grid container spacing={5} alignItems="flex-end">
+      <Grid container spacing={5} alignItems="stretch">
         {tiers.map((tier) => (
           <Grid item key={tier.title} xs={12} md={4}>
             <Card>

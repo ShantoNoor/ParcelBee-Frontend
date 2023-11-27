@@ -9,14 +9,19 @@ import "./main.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout.jsx";
-import Home from "./pages/Home.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
+import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import AuthProvider from "./components/AuthProvider.jsx";
 import SignOut from "./pages/SignOut.jsx";
 import { Toaster } from "react-hot-toast";
 import Test from "./pages/Test.jsx";
+import CssBaseline from "@mui/material/CssBaseline";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+import MyProfile from "./pages/MyProfile.jsx";
+import MyParcels from "./pages/MyParcels.jsx";
+import BookParcel from "./pages/BookParcel.jsx";
+import DashboardRouter from "./components/DashboardRouter.jsx";
 
 // TODO: Design a error page
 
@@ -24,15 +29,19 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
+      { path: "/dashboard", element: <DashboardRouter /> },
+      { path: "/dashboard/my-profile", element: <MyProfile /> },
+      { path: "/dashboard/my-parcels", element: <MyParcels /> },
+      { path: "/dashboard/book-parcel", element: <BookParcel /> },
     ],
   },
   {
@@ -58,6 +67,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <RouterProvider router={router}></RouterProvider>
     </AuthProvider>
+    <CssBaseline />
     <Toaster />
   </React.StrictMode>
 );

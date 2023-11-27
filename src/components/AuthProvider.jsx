@@ -12,6 +12,7 @@ import {
   updateProfile as _updateProfile,
 } from "firebase/auth";
 import toast from "react-hot-toast";
+import { axiosn } from "../hooks/useAxios";
 
 const auth = getAuth(app);
 export const AuthContext = createContext(null);
@@ -23,7 +24,15 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       (async () => {
-        setUser(currentUser);
+        if (currentUser?.email) {
+          const userInfo = await axiosn.get(
+            `/users?email=${currentUser?.email}`
+          );
+          setUser(userInfo.data[0]);
+        } else {
+          setUser(null);
+        }
+
         setLoading(false);
       })();
     });
@@ -53,11 +62,11 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const updateProfile = (name, photoURL) => {
+  const updateProfile = (name, photo) => {
     return new Promise((resolve) => {
       _updateProfile(auth.currentUser, {
-        displayName: name,
-        photoURL: photoURL,
+        name: name,
+        photo: photo,
       })
         .then(() => {
           toast.success("Profile Update Successfull!");

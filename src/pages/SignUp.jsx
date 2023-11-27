@@ -70,7 +70,6 @@ export default function SignUp() {
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
-      <CssBaseline />
       <Grid
         item
         xs={false}
@@ -236,11 +235,7 @@ export default function SignUp() {
               Sign Up
             </Button>
             <Grid container>
-              <Grid item xs>
-                {/* <Link href="#" variant="body2">
-                  Forgot password?
-                </Link> */}
-              </Grid>
+              <Grid item xs />
               <Grid item>
                 <Link to="/sign-in" variant="body2">
                   {"Already have an account? Sign In"}

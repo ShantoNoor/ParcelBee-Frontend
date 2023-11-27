@@ -3,9 +3,11 @@ import Stack from "@mui/material/Stack";
 import GoogleIcon from "@mui/icons-material/Google";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { axiosn } from "../hooks/useAxios";
 
 const SocialLogin = () => {
-  const { googlePopUp } = useAuth();
+  const { googlePopUp, setUser } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -24,8 +26,22 @@ const SocialLogin = () => {
       <Button
         variant="contained"
         startIcon={<GoogleIcon />}
-        onClick={() => {
-          googlePopUp().then(() => redirectAfterLogin());
+        onClick={async () => {
+          try {
+            const user = await googlePopUp();
+            const data = {
+              name: user.name,
+              email: user.email,
+              photo: user.photo,
+            };
+            await axiosn.post("/users", data);
+          } catch (err) {
+            if (err.response.status !== 409) {
+              console.log(err);
+            }
+          } finally {
+            redirectAfterLogin();
+          }
         }}
       >
         Sign in with Google

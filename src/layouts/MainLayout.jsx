@@ -1,13 +1,14 @@
-import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Container } from "@mui/material";
 import Footer from "../components/Footer";
+import Home from "../pages/Home";
+import Toolbar from "@mui/material/Toolbar";
 
 const MainLayout = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <Toolbar />
+      <Home />
       <Footer />
     </>
   );

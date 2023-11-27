@@ -20,6 +20,7 @@ import Divider from "@mui/material/Divider";
 import deepOrange from "@mui/material/colors/deepOrange";
 import NotificationList from "./NotificationList";
 import useAuth from "../hooks/useAuth";
+import UserAvater from "./UserAvater";
 
 const LogoIcon = styled(ShoppingBagIcon)();
 const logoText = "ParcelBee";
@@ -89,7 +90,7 @@ function Navbar() {
   }, [user]);
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="fixed">
       <Container>
         <Toolbar disableGutters={true}>
           <LogoIcon
@@ -249,11 +250,7 @@ function Navbar() {
 
               <Tooltip title="Show Settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}
-                    alt={user.displayName}
-                    src={user.photoURL || user.displayName}
-                  />
+                  <UserAvater size={32} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -272,19 +269,17 @@ function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {user && (
-                  <Box textAlign={"center"}>
-                    <Typography
-                      variant="h6"
-                      component="span"
-                      color={deepOrange[500]}
-                      p={2}
-                    >
-                      {user.displayName}
-                    </Typography>
-                    <Divider variant="middle" />
-                  </Box>
-                )}
+                <Box textAlign={"center"}>
+                  <Typography
+                    variant="h6"
+                    component="span"
+                    // color={deepOrange[500]}
+                    p={2}
+                  >
+                    {user.name}
+                  </Typography>
+                  <Divider variant="middle" />
+                </Box>
 
                 {settings.map((setting) => (
                   <MenuItem
