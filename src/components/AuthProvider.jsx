@@ -25,10 +25,14 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       (async () => {
         if (currentUser?.email) {
-          const userInfo = await axiosn.get(
-            `/users?email=${currentUser?.email}`
-          );
-          setUser(userInfo.data[0]);
+          try {
+            const userInfo = await axiosn.get(
+              `/users?email=${currentUser?.email}`
+            );
+            setUser(userInfo.data[0]);
+          } catch (err) {
+            console.error(err);
+          }
         } else {
           setUser(null);
         }
