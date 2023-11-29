@@ -63,7 +63,7 @@ export default function SignUp() {
       }
     } catch (err) {
       console.error(err);
-      toast.error(err?.response?.data)
+      toast.error(err?.response?.data);
     }
   };
 
@@ -142,7 +142,12 @@ export default function SignUp() {
                     },
                   })}
                 />
-                <Typography component={"p"} color={"error"} role="alert">
+                <Typography
+                  component={"p"}
+                  color={"error"}
+                  role="alert"
+                  fontSize={"14px"}
+                >
                   {errors?.name?.message}
                 </Typography>
               </Box>
@@ -160,7 +165,12 @@ export default function SignUp() {
                     },
                   })}
                 />
-                <Typography component={"p"} color={"error"} role="alert">
+                <Typography
+                  component={"p"}
+                  color={"error"}
+                  role="alert"
+                  fontSize={"14px"}
+                >
                   {errors?.email?.message}
                 </Typography>
               </Box>
@@ -201,7 +211,12 @@ export default function SignUp() {
                     })}
                   />
                 </FormControl>
-                <Typography component={"p"} color={"error"} role="alert">
+                <Typography
+                  component={"p"}
+                  color={"error"}
+                  role="alert"
+                  fontSize={"14px"}
+                >
                   {errors?.password?.message}
                 </Typography>
               </Box>
@@ -219,7 +234,12 @@ export default function SignUp() {
                     },
                   })}
                 />
-                <Typography component={"p"} color={"error"} role="alert">
+                <Typography
+                  component={"p"}
+                  color={"error"}
+                  role="alert"
+                  fontSize={"14px"}
+                >
                   {errors?.phone?.message}
                 </Typography>
               </Box>

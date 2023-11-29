@@ -142,7 +142,12 @@ export default function SignIn() {
                     },
                   })}
                 />
-                <Typography component={"p"} color={"error"} role="alert">
+                <Typography
+                  component={"p"}
+                  color={"error"}
+                  role="alert"
+                  fontSize={"14px"}
+                >
                   {errors?.email?.message}
                 </Typography>
               </Box>
@@ -183,7 +188,12 @@ export default function SignIn() {
                     })}
                   />
                 </FormControl>
-                <Typography component={"p"} color={"error"} role="alert">
+                <Typography
+                  component={"p"}
+                  color={"error"}
+                  role="alert"
+                  fontSize={"14px"}
+                >
                   {errors?.password?.message}
                 </Typography>
               </Box>

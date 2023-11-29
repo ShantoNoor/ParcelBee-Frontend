@@ -18,13 +18,13 @@ const BookParcel = () => {
     watch,
     control,
     setValue,
+    reset,
   } = useForm({
     defaultValues: {
       name: user.name,
       email: user.email,
       phone: user.phone,
       price: 0,
-      requested_delivery_date: moment("2023-11-15T18:00:00Z").utc(),
     },
   });
 
@@ -36,6 +36,7 @@ const BookParcel = () => {
       const res = await axiosn.post("/parcels", data);
       if (res.status === 201) {
         toast.success("Parcel Added Successfully");
+        reset();
       }
     } catch (err) {
       toast.error("Unable to Add Parcel");
@@ -78,7 +79,12 @@ const BookParcel = () => {
                 required: "Parcel Type is required",
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.parcel_type?.message}
             </Typography>
           </Box>
@@ -97,7 +103,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.parcel_weight?.message}
             </Typography>
           </Box>
@@ -122,7 +133,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.email?.message}
             </Typography>
           </Box>
@@ -143,7 +159,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.name?.message}
             </Typography>
           </Box>
@@ -163,7 +184,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.phone?.message}
             </Typography>
           </Box>
@@ -171,7 +197,7 @@ const BookParcel = () => {
 
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           {/* receiver_name */}
-          <Box flex={1}>
+          <Box flex={2}>
             <TextField
               variant="standard"
               fullWidth
@@ -184,7 +210,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.receiver_name?.message}
             </Typography>
           </Box>
@@ -203,7 +234,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.receiver_phone?.message}
             </Typography>
           </Box>
@@ -221,7 +257,12 @@ const BookParcel = () => {
                 required: "Parcel Delivery Address is required",
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.delivery_address?.message}
             </Typography>
           </Box>
@@ -247,7 +288,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.address_latitude?.message}
             </Typography>
           </Box>
@@ -271,7 +317,12 @@ const BookParcel = () => {
                 },
               })}
             />
-            <Typography component={"p"} color={"error"} role="alert">
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
               {errors?.address_longitude?.message}
             </Typography>
           </Box>
@@ -295,6 +346,9 @@ const BookParcel = () => {
               name="requested_delivery_date"
               control={control}
               defaultValue={null}
+              rules={{
+                required: "Requested Delivery Date is required",
+              }}
               render={({ field }) => (
                 <DatePicker
                   {...field}
@@ -311,6 +365,14 @@ const BookParcel = () => {
                 />
               )}
             />
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
+              {errors?.requested_delivery_date?.message}
+            </Typography>
           </Box>
         </Stack>
       </Stack>
