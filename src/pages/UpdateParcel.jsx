@@ -6,7 +6,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { useEffect } from "react";
 import { axiosn } from "../hooks/useAxios";
 import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useOutletContext, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import moment from "moment";
@@ -30,6 +30,24 @@ const UpdateParcel = () => {
     enabled: !!user && !!_id,
   });
 
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async (data) => {
+      try {
+        const res = await axiosn.put(`/parcels/${_id}`, data);
+        if (res.status === 200) {
+          toast.success("Parcel Updated Successfully");
+        }
+      } catch (err) {
+        toast.error("Unable to Update Parcel");
+        console.error(err);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["/parcels", `_id=${_id}`, `/users`, `_id=${user._id}`]})
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -37,25 +55,14 @@ const UpdateParcel = () => {
     watch,
     control,
     setValue,
-    reset,
   } = useForm({});
 
   const formSubmit = async (data) => {
-    data._id = _id
+    data._id = _id;
     data.user = user._id;
     data.requested_delivery_date = data.requested_delivery_date.utc().format();
 
-    try {
-      const res = await axiosn.put(`/parcels/${_id}`, data);
-      console.log(res)
-      // if (res.status === 201) {
-        // toast.success("Parcel Added Successfully");
-        // reset();
-      // }
-    } catch (err) {
-      toast.error("Unable to Add Parcel");
-      console.error(err);
-    }
+    mutation.mutate(data);
   };
 
   const watch_weight = watch("parcel_weight");
