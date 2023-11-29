@@ -22,6 +22,8 @@ import MyProfile from "./pages/MyProfile.jsx";
 import MyParcels from "./pages/MyParcels.jsx";
 import BookParcel from "./pages/BookParcel.jsx";
 import DashboardRouter from "./components/DashboardRouter.jsx";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 // TODO: Design a error page
 
@@ -65,7 +67,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <RouterProvider router={router}></RouterProvider>
+      </LocalizationProvider>
     </AuthProvider>
     <CssBaseline />
     <Toaster />

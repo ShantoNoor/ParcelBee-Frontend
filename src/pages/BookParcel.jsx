@@ -1,31 +1,62 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
-import { useState } from "react";
+
+import { DatePicker } from "@mui/x-date-pickers";
+import { useEffect } from "react";
+import moment from "moment";
+import { axiosn } from "../hooks/useAxios";
+import toast from "react-hot-toast";
 
 const BookParcel = () => {
   const { user } = useAuth();
-
-  const [price, setPrice] = useState(0);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    control,
+    setValue,
   } = useForm({
     defaultValues: {
       name: user.name,
       email: user.email,
       phone: user.phone,
+      price: 0,
+      requested_delivery_date: moment("2023-11-15T18:00:00Z").utc(),
     },
   });
 
-  const formSubmit = (data) => {
-    console.log(data);
+  const formSubmit = async (data) => {
+    data.user = user._id;
+    data.requested_delivery_date = data.requested_delivery_date.utc().format();
+
+    try {
+      const res = await axiosn.post("/parcels", data);
+      if (res.status === 201) {
+        toast.success("Parcel Added Successfully");
+      }
+    } catch (err) {
+      toast.error("Unable to Add Parcel");
+      console.error(err);
+    }
   };
 
   const watch_weight = watch("parcel_weight");
+
+  const updatePrice = (watch_weight) => {
+    const value = watch_weight
+      ? watch_weight <= 2
+        ? watch_weight * 50
+        : 150
+      : 0;
+    return value;
+  };
+
+  useEffect(() => {
+    setValue("price", updatePrice(watch_weight));
+  }, [watch_weight, setValue]);
 
   return (
     <Box
@@ -245,19 +276,42 @@ const BookParcel = () => {
             </Typography>
           </Box>
         </Stack>
-
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-          <TextField
-            variant="standard"
-            fullWidth
-            label="Price (Taka)"
-            type="number"
-            value={watch_weight <= 2 ? watch_weight * 50 : 150}
-            InputProps={{
-              readOnly: true,
-            }}
-            {...register("price")}
-          />
+          <Box flex={1}>
+            <TextField
+              variant="standard"
+              fullWidth
+              label="Price (Taka)"
+              type="number"
+              value={updatePrice(watch_weight)}
+              {...register("price")}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          </Box>
+          <Box flex={1}>
+            <Controller
+              name="requested_delivery_date"
+              control={control}
+              defaultValue={null}
+              render={({ field }) => (
+                <DatePicker
+                  {...field}
+                  sx={{ width: "100%" }}
+                  slotProps={{
+                    textField: {
+                      variant: "standard",
+                      helperText: "MM/DD/YYYY",
+                    },
+                  }}
+                  label="Requested Delivery Date"
+                  render={(params) => <TextField {...params} />}
+                  disablePast={true}
+                />
+              )}
+            />
+          </Box>
         </Stack>
       </Stack>
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
