@@ -25,6 +25,9 @@ import DashboardRouter from "./components/DashboardRouter.jsx";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UpdateParcel from "./pages/UpdateParcel.jsx";
+
 // TODO: Design a error page
 
 const router = createBrowserRouter([
@@ -44,6 +47,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/my-profile", element: <MyProfile /> },
       { path: "/dashboard/my-parcels", element: <MyParcels /> },
       { path: "/dashboard/book-parcel", element: <BookParcel /> },
+      { path: "/dashboard/update-parcel/:_id", element: <UpdateParcel /> },
     ],
   },
   {
@@ -64,13 +68,17 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <RouterProvider router={router}></RouterProvider>
-      </LocalizationProvider>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <RouterProvider router={router}></RouterProvider>
+        </LocalizationProvider>
+      </AuthProvider>
+    </QueryClientProvider>
     <CssBaseline />
     <Toaster />
   </React.StrictMode>

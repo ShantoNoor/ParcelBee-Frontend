@@ -26,7 +26,7 @@ import { Outlet } from "react-router-dom";
 import DashboardMenu from "../components/DashboardMenu";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 
 const drawerWidth = 240;
 
@@ -53,7 +53,7 @@ function DashboardLayout() {
         <DashboardMenu
           menu={[
             [
-              "Book a Parcel",
+              "Book Parcel",
               "/dashboard/book-parcel",
               <BookmarkAddIcon key={1} />,
             ],
@@ -65,11 +65,7 @@ function DashboardLayout() {
       <Divider />
       <DashboardMenu
         menu={[
-          [
-            "Home",
-            "/",
-            <HomeIcon key={1} />,
-          ],
+          ["Home", "/", <HomeIcon key={1} />],
           [
             "My Profile",
             "/dashboard/my-profile",
@@ -152,7 +148,7 @@ function DashboardLayout() {
         }}
       >
         <Toolbar />
-        <Outlet />
+        <Outlet context={{ setTitle }} />
       </Box>
     </Box>
   );

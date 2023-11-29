@@ -6,9 +6,29 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { useEffect } from "react";
 import { axiosn } from "../hooks/useAxios";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { useOutletContext, useParams } from "react-router-dom";
+import Spinner from "../components/Spinner";
+import moment from "moment";
 
-const BookParcel = () => {
+const UpdateParcel = () => {
+  const { setTitle } = useOutletContext();
+
   const { user } = useAuth();
+  const { _id } = useParams();
+
+  const { data, isPending, error } = useQuery({
+    queryKey: ["/parcels", `_id=${_id}`],
+    queryFn: async () => {
+      try {
+        const res = await axiosn.get(`/parcels?_id=${_id}`);
+        return res.data[0];
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    enabled: !!user && !!_id,
+  });
 
   const {
     register,
@@ -18,25 +38,20 @@ const BookParcel = () => {
     control,
     setValue,
     reset,
-  } = useForm({
-    defaultValues: {
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      price: 0,
-    },
-  });
+  } = useForm({});
 
   const formSubmit = async (data) => {
+    data._id = _id
     data.user = user._id;
     data.requested_delivery_date = data.requested_delivery_date.utc().format();
 
     try {
-      const res = await axiosn.post("/parcels", data);
-      if (res.status === 201) {
-        toast.success("Parcel Added Successfully");
-        reset();
-      }
+      const res = await axiosn.put(`/parcels/${_id}`, data);
+      console.log(res)
+      // if (res.status === 201) {
+        // toast.success("Parcel Added Successfully");
+        // reset();
+      // }
     } catch (err) {
       toast.error("Unable to Add Parcel");
       console.error(err);
@@ -55,8 +70,32 @@ const BookParcel = () => {
   };
 
   useEffect(() => {
+    setTitle("Update Parcel");
+  }, [setTitle]);
+
+  useEffect(() => {
     setValue("price", updatePrice(watch_weight));
   }, [watch_weight, setValue]);
+
+  useEffect(() => {
+    setValue("parcel_type", data?.parcel_type);
+    setValue("parcel_weight", data?.parcel_weight);
+    setValue("name", data?.user.name);
+    setValue("email", data?.user.email);
+    setValue("receiver_name", data?.receiver_name);
+    setValue("receiver_phone", data?.receiver_phone);
+    setValue("delivery_address", data?.delivery_address);
+    setValue("address_latitude", data?.address_latitude);
+    setValue("address_longitude", data?.address_longitude);
+    setValue(
+      "requested_delivery_date",
+      moment(data?.requested_delivery_date).utc()
+    );
+    setValue("price", data?.price);
+  }, [data, setValue]);
+
+  if (isPending) return <Spinner />;
+  if (error) return "An error has occurred: " + error.message;
 
   return (
     <Box
@@ -376,10 +415,10 @@ const BookParcel = () => {
         </Stack>
       </Stack>
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-        Book
+        Update
       </Button>
     </Box>
   );
 };
 
-export default BookParcel;
+export default UpdateParcel;
