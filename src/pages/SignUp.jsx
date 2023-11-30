@@ -27,6 +27,8 @@ import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { axiosn } from "../hooks/useAxios";
 import toast from "react-hot-toast";
+import SelectFormField from "../components/SelectFormField";
+import styled from "@emotion/styled";
 
 const Player = React.lazy(() =>
   import("@lottiefiles/react-lottie-player").then((module) => {
@@ -34,17 +36,34 @@ const Player = React.lazy(() =>
   })
 );
 
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import axios from "axios";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
+
 export default function SignUp() {
-  const [animation, setAnimation] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const { setUser } = useAuth();
+
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm();
+  } = useForm({});
 
   const { signUp, updateProfile } = useAuth();
   const navigate = useNavigate();
@@ -53,22 +72,65 @@ export default function SignUp() {
     event.preventDefault();
   };
 
-  const formSubmit = async (data) => {
+  const uploadPhoto = (photo) => {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append("image", photo);
+      axios
+        .post(
+          `https://api.imgbb.com/1/upload?key=${
+            import.meta.env.VITE_apiKey_imagebb
+          }`,
+          formData,
+          {
+            headers: {
+              "content-type": "multipart/form-data",
+            },
+          }
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            const photoUrl = response.data.data.url;
+            return resolve(photoUrl);
+          }
+        })
+        .catch((error) => {
+          console.error("Error uploading image:", error);
+          return reject(error);
+        });
+    });
+  };
+
+  const formSubmit = async (all_data) => {
+    const id = toast.loading("Please, wait ....");
     try {
-      const res = await axiosn.post("/users", data);
-      if (res.status === 201) {
-        await signUp(data.name, data.email, data.password);
-        await updateProfile(data.name, "");
+      const { photo, ...data } = all_data;
+      let photoUrl = "";
+      if (photo.length) {
+        photoUrl = await uploadPhoto(photo[0]);
+      }
+      data.photo = photoUrl;
+
+      const res = await signUp(data.name, data.email, data.password);
+
+      if (res?.email) {
+        await Promise.all([
+          axiosn.post("/users", data),
+          updateProfile(data.name, data.photo),
+        ]);
+        toast.dismiss(id);
+        setUser(data);
         navigate("/");
       }
     } catch (err) {
       console.error(err);
+      toast.dismiss(id);
       toast.error(err?.response?.data);
     }
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
+    <Grid container component="main">
       <Grid
         item
         xs={false}
@@ -129,28 +191,52 @@ export default function SignUp() {
             sx={{ mt: 1, width: "100%" }}
           >
             <Stack spacing={2}>
-              <Box>
-                <TextField
-                  fullWidth
-                  label="Name"
-                  autoFocus
-                  {...register("name", {
-                    required: "Name is required",
-                    minLength: {
-                      value: 3,
-                      message: "Name shoud have at least 3 characters",
-                    },
-                  })}
-                />
-                <Typography
-                  component={"p"}
-                  color={"error"}
-                  role="alert"
-                  fontSize={"14px"}
-                >
-                  {errors?.name?.message}
-                </Typography>
-              </Box>
+              <Stack direction="row" spacing={2}>
+                <Box flex={1}>
+                  <TextField
+                    fullWidth
+                    label="Name"
+                    autoFocus
+                    {...register("name", {
+                      required: "Name is required",
+                      minLength: {
+                        value: 3,
+                        message: "Name shoud have at least 3 characters",
+                      },
+                    })}
+                  />
+                  <Typography
+                    component={"p"}
+                    color={"error"}
+                    role="alert"
+                    fontSize={"14px"}
+                  >
+                    {errors?.name?.message}
+                  </Typography>
+                </Box>
+                <Box flex={1}>
+                  <TextField
+                    fullWidth
+                    label="Phone Number"
+                    type="tel"
+                    {...register("phone", {
+                      required: "Phone Number is required",
+                      pattern: {
+                        value: /^\d{6,14}$/,
+                        message: "Enter a valid phone number.",
+                      },
+                    })}
+                  />
+                  <Typography
+                    component={"p"}
+                    color={"error"}
+                    role="alert"
+                    fontSize={"14px"}
+                  >
+                    {errors?.phone?.message}
+                  </Typography>
+                </Box>
+              </Stack>
 
               <Box>
                 <TextField
@@ -222,27 +308,27 @@ export default function SignUp() {
               </Box>
 
               <Box>
-                <TextField
-                  fullWidth
-                  label="Phone Number"
-                  type="tel"
-                  {...register("phone", {
-                    required: "Phone Number is required",
-                    pattern: {
-                      value: /^\d{6,14}$/,
-                      message: "Enter a valid phone number.",
-                    },
-                  })}
+                <SelectFormField
+                  control={control}
+                  name={"status"}
+                  label={"Profile Status"}
+                  variant="outlined"
+                  defaultValue="user"
+                  options={[
+                    { value: "user", label: "User" },
+                    { value: "delivery_man", label: "Delivery Man" },
+                  ]}
                 />
-                <Typography
-                  component={"p"}
-                  color={"error"}
-                  role="alert"
-                  fontSize={"14px"}
-                >
-                  {errors?.phone?.message}
-                </Typography>
               </Box>
+
+              <Button
+                component="label"
+                variant="outlined"
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload Profile Picture
+                <VisuallyHiddenInput type="file" {...register("photo")} />
+              </Button>
             </Stack>
 
             <Button

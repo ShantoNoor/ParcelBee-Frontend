@@ -16,6 +16,7 @@ const SelectFormField = ({ control, name, label, options, defaultValue="", varia
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             {...field}
+            label={label}
           >
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
