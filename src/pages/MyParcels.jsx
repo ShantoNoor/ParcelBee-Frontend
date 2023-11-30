@@ -130,7 +130,7 @@ const MyParcels = () => {
 
   return (
     <>
-      <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
+      <FormControl variant="standard" sx={{ width: "100%" }}>
         <InputLabel id="demo-simple-select-standard-label">
           Booking Status
         </InputLabel>
@@ -141,7 +141,6 @@ const MyParcels = () => {
           onChange={handleChange}
           label="Booking Status"
         >
-          {/* "pending", "on_the_way", "delivered", "returned", "cancelled" */}
           <MenuItem value="all">All</MenuItem>
           <MenuItem value="pending">Pending</MenuItem>
           <MenuItem value="on_the_way">On The Way</MenuItem>

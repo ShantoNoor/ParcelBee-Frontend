@@ -65,12 +65,12 @@ function DashboardLayout() {
       <Divider />
       <DashboardMenu
         menu={[
-          ["Home", "/", <HomeIcon key={1} />],
           [
             "My Profile",
             "/dashboard/my-profile",
             <AccountCircleIcon key={1} />,
           ],
+          ["Home", "/", <HomeIcon key={1} />],
           ["Sign Out", "/sign-out", <ExitToAppIcon key={2} />],
         ]}
         setTitle={setTitle}
