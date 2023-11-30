@@ -20,6 +20,15 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
+const delivery_man_options = [{ value: "delivery_man", label: "Delivery Man" }];
+
+const user_options = [
+  { value: "user", label: "User" },
+  ...delivery_man_options,
+];
+
+const admin_options = [{ value: "admin", label: "Admin" }];
+
 const MyProfile = () => {
   const { user, updateProfile, setUser } = useAuth();
 
@@ -175,10 +184,13 @@ const MyProfile = () => {
             control={control}
             name={"status"}
             label={"Profile Status"}
-            options={[
-              { value: "user", label: "User" },
-              { value: "delivery_man", label: "Delivery Man" },
-            ]}
+            options={
+              user.status === "admin"
+                ? admin_options
+                : user.status === "user"
+                ? user_options
+                : delivery_man_options
+            }
           />
         </Box>
 

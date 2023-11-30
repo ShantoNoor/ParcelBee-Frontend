@@ -27,6 +27,12 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UpdateParcel from "./pages/UpdateParcel.jsx";
+import AllParcel from "./pages/AllParcel.jsx";
+import AllUsers from "./pages/AllUsers.jsx";
+import AllDeliveryMan from "./pages/AllDeliveryMan.jsx";
+import Statistics from "./pages/Statistics.jsx";
+import MyDeliveryList from "./pages/MyDeliveryList.jsx";
+import MyReviews from "./pages/MyReviews.jsx";
 
 // TODO: Design a error page
 
@@ -48,6 +54,12 @@ const router = createBrowserRouter([
       { path: "/dashboard/my-parcels", element: <MyParcels /> },
       { path: "/dashboard/book-parcel", element: <BookParcel /> },
       { path: "/dashboard/update-parcel/:_id", element: <UpdateParcel /> },
+      { path: "/dashboard/statistics", element: <Statistics /> },
+      { path: "/dashboard/all-parcels", element: <AllParcel /> },
+      { path: "/dashboard/all-users", element: <AllUsers /> },
+      { path: "/dashboard/all-delivery-man", element: <AllDeliveryMan /> },
+      { path: "/dashboard/my-delivery-list", element: <MyDeliveryList /> },
+      { path: "/dashboard/my-reviews", element: <MyReviews /> },
     ],
   },
   {

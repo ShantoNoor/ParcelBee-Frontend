@@ -1,17 +1,11 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -27,6 +21,11 @@ import DashboardMenu from "../components/DashboardMenu";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import HomeIcon from "@mui/icons-material/Home";
+
+import LegendToggleIcon from "@mui/icons-material/LegendToggle";
+import PeopleIcon from "@mui/icons-material/People";
+import HailIcon from "@mui/icons-material/Hail";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 const drawerWidth = 240;
 
@@ -50,17 +49,65 @@ function DashboardLayout() {
       </Stack>
       <Divider />
       <List>
-        <DashboardMenu
-          menu={[
-            [
-              "Book Parcel",
-              "/dashboard/book-parcel",
-              <BookmarkAddIcon key={1} />,
-            ],
-            ["My Parcels", "/dashboard/my-parcels", <BookmarksIcon key={2} />],
-          ]}
-          setTitle={setTitle}
-        />
+        {user.status === "user" && (
+          <DashboardMenu
+            menu={[
+              [
+                "Book Parcel",
+                "/dashboard/book-parcel",
+                <BookmarkAddIcon key={1} />,
+              ],
+              [
+                "My Parcels",
+                "/dashboard/my-parcels",
+                <BookmarksIcon key={2} />,
+              ],
+            ]}
+            setTitle={setTitle}
+          />
+        )}
+
+        {user.status === "delivery_man" && (
+          <DashboardMenu
+            menu={[
+              [
+                "My Delivery List",
+                "/dashboard/my-delivery-list",
+                <BookmarkAddIcon key={1} />,
+              ],
+              [
+                "My Reviews",
+                "/dashboard/my-reviews",
+                <BookmarksIcon key={2} />,
+              ],
+            ]}
+            setTitle={setTitle}
+          />
+        )}
+
+        {user.status === "admin" && (
+          <DashboardMenu
+            menu={[
+              [
+                "Statistics",
+                "/dashboard/statistics",
+                <LegendToggleIcon key={1} />,
+              ],
+              [
+                "All Parcels",
+                "/dashboard/all-parcels",
+                <LocalMallIcon key={2} />,
+              ],
+              ["All Users", "/dashboard/all-users", <PeopleIcon key={2} />],
+              [
+                "All Delivery Man",
+                "/dashboard/all-delivery-man",
+                <HailIcon key={2} />,
+              ],
+            ]}
+            setTitle={setTitle}
+          />
+        )}
       </List>
       <Divider />
       <DashboardMenu
