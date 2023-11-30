@@ -69,8 +69,8 @@ const AuthProvider = ({ children }) => {
   const updateProfile = (name, photo) => {
     return new Promise((resolve) => {
       _updateProfile(auth.currentUser, {
-        name: name,
-        photo: photo,
+        displayName: name,
+        photoURL: photo,
       })
         .then(() => {
           toast.success("Profile Update Successfull!");
@@ -137,6 +137,7 @@ const AuthProvider = ({ children }) => {
         googlePopUp,
         githubPopUp,
         user,
+        setUser,
         signOut,
         signUp,
         signIn,

@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,7 +16,6 @@ import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import Divider from "@mui/material/Divider";
-import deepOrange from "@mui/material/colors/deepOrange";
 import NotificationList from "./NotificationList";
 import useAuth from "../hooks/useAuth";
 import UserAvater from "./UserAvater";
@@ -37,7 +35,7 @@ const authPages = [
 
 const settings = [
   ["Dashboard", "/dashboard"],
-  ["Profile", "/profile"],
+  ["Profile", "/dashboard/my-profile"],
   ["Sign Out", "/sign-out"],
 ];
 /* TODO: roll based dashbord and links */
