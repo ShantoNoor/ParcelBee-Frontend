@@ -15,7 +15,10 @@ import {
   Divider,
   FormControl,
   FormLabel,
+  InputLabel,
+  MenuItem,
   Rating,
+  Select,
   Stack,
   TextField,
   Typography,
@@ -40,19 +43,6 @@ const MyParcels = () => {
   const { user } = useAuth();
 
   const navigate = useNavigate();
-
-  const { isPending, error, data } = useQuery({
-    queryKey: [`/parcels`, `user=${user._id}`],
-    queryFn: async () => {
-      try {
-        const res = await axiosn.get(`/parcels?user=${user._id}`);
-        return res.data;
-      } catch (err) {
-        console.error(err);
-      }
-    },
-    enabled: !!user,
-  });
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -114,11 +104,52 @@ const MyParcels = () => {
     setValue("email", user.email);
   }, [user, setValue]);
 
+  const [filter_booking_status, setFilter_booking_status] = useState("all");
+
+  const { isPending, error, data, refetch } = useQuery({
+    queryKey: [`/parcels`, `user=${user._id}`, `booking_status=${filter_booking_status}`],
+    queryFn: async () => {
+      try {
+        const res = await axiosn.get(`/parcels?user=${user._id}&booking_status=${filter_booking_status}`);
+        return res.data;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    enabled: !!user,
+  });
+
+  const handleChange = (event) => {
+    const filter = event.target.value;
+    setFilter_booking_status(filter);
+    refetch()
+  };
+
   if (isPending) return <Spinner />;
   if (error) return "An error has occurred: " + error.message;
 
   return (
     <>
+      <FormControl variant="standard" sx={{ m: 1, width: "100%" }}>
+        <InputLabel id="demo-simple-select-standard-label">
+          Booking Status
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={filter_booking_status}
+          onChange={handleChange}
+          label="Booking Status"
+        >
+          {/* "pending", "on_the_way", "delivered", "returned", "cancelled" */}
+          <MenuItem value="all">All</MenuItem>
+          <MenuItem value="pending">Pending</MenuItem>
+          <MenuItem value="on_the_way">On The Way</MenuItem>
+          <MenuItem value="delivered">Delivered</MenuItem>
+          <MenuItem value="returned">Returned</MenuItem>
+          <MenuItem value="cancelled">Cancelled</MenuItem>
+        </Select>
+      </FormControl>
       <TableContainer>
         <Table aria-label="simple table">
           <TableHead>
@@ -224,7 +255,6 @@ const MyParcels = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
       <Dialog open={open2} onClose={handleClose2}>
         <DialogTitle>Leave a review</DialogTitle>
         <DialogContent>
