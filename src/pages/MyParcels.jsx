@@ -173,7 +173,7 @@ const MyParcels = () => {
                   {moment(item.requested_delivery_date).format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {moment(item.approximate_delivery_date).format("MM/DD/YYYY")}
+                  {item.approximate_delivery_date ? moment(item.approximate_delivery_date).format("MM/DD/YYYY") : "null"}
                 </TableCell>
                 <TableCell>
                   {moment(item.booking_date).format("MM/DD/YYYY")}
