@@ -24,7 +24,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import toast from "react-hot-toast";
 
 const AllParcel = () => {
-  const { isPending, error, data, refetch } = useQuery({
+  const { isPending, error, data } = useQuery({
     queryKey: [`/parcels`],
     queryFn: async () => {
       try {
