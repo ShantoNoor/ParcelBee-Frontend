@@ -39,8 +39,6 @@ const AllUsers = () => {
     },
   });
 
-  console.log(users_data)
-
   if (isPending) return <Spinner />;
   if (error) return "An error has occurred: " + error.message;
 
@@ -104,10 +102,9 @@ const AllUsers = () => {
       <TablePagination
         rowsPerPageOptions={[5]}
         rowsPerPage={5}
-        // onRowsPerPageChange={() => }
         component="div"
-        count={users_data.total_count} // total count
-        page={page} // current page
+        count={users_data.total_count}
+        page={page}
         onPageChange={handleChangePage}
       />
     </>
@@ -115,5 +112,3 @@ const AllUsers = () => {
 };
 
 export default AllUsers;
-
-// TODO: pagination

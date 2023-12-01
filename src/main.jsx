@@ -14,6 +14,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Spinner from "./components/Spinner.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
+import UserRoute from "./components/UserRoute.jsx";
+import DeliveryManRoute from "./components/DeliveryManRoute.jsx";
 
 const PrivateRoute = lazy(() => import("./components/PrivateRoute.jsx"));
 const AuthProvider = lazy(() => import("./components/AuthProvider.jsx"));
@@ -52,16 +55,87 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "/dashboard", element: <DashboardRouter /> },
-      { path: "/dashboard/my-profile", element: <MyProfile /> },
-      { path: "/dashboard/my-parcels", element: <MyParcels /> },
-      { path: "/dashboard/book-parcel", element: <BookParcel /> },
-      { path: "/dashboard/update-parcel/:_id", element: <UpdateParcel /> },
-      { path: "/dashboard/statistics", element: <Statistics /> },
-      { path: "/dashboard/all-parcels", element: <AllParcel /> },
-      { path: "/dashboard/all-users", element: <AllUsers /> },
-      { path: "/dashboard/all-delivery-man", element: <AllDeliveryMan /> },
-      { path: "/dashboard/my-delivery-list", element: <MyDeliveryList /> },
-      { path: "/dashboard/my-reviews", element: <MyReviews /> },
+
+      {
+        path: "/dashboard/my-profile",
+        element: (
+          <UserRoute>
+            <MyProfile />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-parcels",
+        element: (
+          <UserRoute>
+            <MyParcels />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/dashboard/book-parcel",
+        element: (
+          <UserRoute>
+            <BookParcel />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/dashboard/update-parcel/:_id",
+        element: (
+          <UserRoute>
+            <UpdateParcel />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/dashboard/statistics",
+        element: (
+          <AdminRoute>
+            <Statistics />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-parcels",
+        element: (
+          <AdminRoute>
+            <AllParcel />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-users",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-delivery-man",
+        element: (
+          <AdminRoute>
+            <AllDeliveryMan />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-delivery-list",
+        element: (
+          <DeliveryManRoute>
+            <MyDeliveryList />
+          </DeliveryManRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-reviews",
+        element: (
+          <DeliveryManRoute>
+            <MyReviews />
+          </DeliveryManRoute>
+        ),
+      },
     ],
   },
   {

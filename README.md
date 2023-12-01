@@ -1,8 +1,23 @@
-# React + Vite
+# Features
+## User Dashboard:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Book a Parcel: Users can fill out a form to book parcels with details such as parcel type, weight, receiver's information, etc.
+My Parcels: Users can view a list of their booked parcels, check status, update, cancel, review.
 
-Currently, two official plugins are available:
+- My Profile: Users can view and update their profile information including profile picture upload.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Admin Dashboard:
+
+- Statistics: Display app usage data using charts (bar chart for bookings by date).
+
+- All Parcels: Admin can view and manage all booked parcels, assign delivery men, change statuses, search by date range, etc.
+
+- All Delivery Men: Admin can view a list of all delivery men, their statistics.
+
+- All Users: Admin can view all registered users, their statistics, and change user roles.
+
+## Delivery Men's Dashboard:
+
+- My Delivery List: Display parcels assigned to the logged-in delivery man, allow cancellation and delivery updates.
+
+- My Reviews: Show reviews received from users, including ratings and feedback.
