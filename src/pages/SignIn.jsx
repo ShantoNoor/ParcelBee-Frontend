@@ -27,6 +27,7 @@ import Animation from "../assets/animations/sign-in.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
+import useTitle from "../hooks/useTitle";
 
 const Player = React.lazy(() =>
   import("@lottiefiles/react-lottie-player").then((module) => {
@@ -35,6 +36,7 @@ const Player = React.lazy(() =>
 );
 
 export default function SignIn() {
+  useTitle("Sign In")
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);

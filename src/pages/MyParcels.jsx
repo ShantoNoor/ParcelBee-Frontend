@@ -32,12 +32,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { forwardRef, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import useTitle from "../hooks/useTitle";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const MyParcels = () => {
+  useTitle("My Parcels");
   const { user } = useAuth();
 
   const navigate = useNavigate();
@@ -105,10 +107,16 @@ const MyParcels = () => {
   const [filter_booking_status, setFilter_booking_status] = useState("all");
 
   const { isPending, error, data, refetch } = useQuery({
-    queryKey: [`/parcels`, `user=${user._id}`, `booking_status=${filter_booking_status}`],
+    queryKey: [
+      `/parcels`,
+      `user=${user._id}`,
+      `booking_status=${filter_booking_status}`,
+    ],
     queryFn: async () => {
       try {
-        const res = await axiosn.get(`/parcels?user=${user._id}&booking_status=${filter_booking_status}`);
+        const res = await axiosn.get(
+          `/parcels?user=${user._id}&booking_status=${filter_booking_status}`
+        );
         return res.data;
       } catch (err) {
         console.error(err);
@@ -120,7 +128,7 @@ const MyParcels = () => {
   const handleChange = (event) => {
     const filter = event.target.value;
     setFilter_booking_status(filter);
-    refetch()
+    refetch();
   };
 
   if (isPending) return <Spinner />;
@@ -167,10 +175,16 @@ const MyParcels = () => {
               <TableRow key={item._id}>
                 <TableCell>{item.parcel_type}</TableCell>
                 <TableCell>
-                  {moment(item.requested_delivery_date).utc().format("MM/DD/YYYY")}
+                  {moment(item.requested_delivery_date)
+                    .utc()
+                    .format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {item.approximate_delivery_date ? moment(item.approximate_delivery_date).utc().format("MM/DD/YYYY") : "null"}
+                  {item.approximate_delivery_date
+                    ? moment(item.approximate_delivery_date)
+                        .utc()
+                        .format("MM/DD/YYYY")
+                    : "null"}
                 </TableCell>
                 <TableCell>
                   {moment(item.booking_date).utc().format("MM/DD/YYYY")}

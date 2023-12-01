@@ -3,8 +3,10 @@ import Spinner from "../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { axiosn } from "../hooks/useAxios";
 import Chart from "react-apexcharts";
+import useTitle from "../hooks/useTitle";
 
 const Statistics = () => {
+  useTitle("Statistics");
   const {
     data: stats,
     isPending,

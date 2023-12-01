@@ -10,8 +10,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useOutletContext, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import moment from "moment";
+import useTitle from "../hooks/useTitle";
 
 const UpdateParcel = () => {
+  useTitle("Update Parcel");
   const { setTitle } = useOutletContext();
 
   const { user } = useAuth();
@@ -44,7 +46,9 @@ const UpdateParcel = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["/parcels", `_id=${_id}`, `/users`, `_id=${user._id}`]})
+      queryClient.invalidateQueries({
+        queryKey: ["/parcels", `_id=${_id}`, `/users`, `_id=${user._id}`],
+      });
     },
   });
 

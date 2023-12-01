@@ -9,8 +9,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { axiosn } from "../hooks/useAxios";
 import Spinner from "../components/Spinner";
+import useTitle from "../hooks/useTitle";
 
 const AllDeliveryMan = () => {
+  useTitle("All Delivery Man");
   const { data, isPending, error } = useQuery({
     queryKey: ["/delivery_man_stats"],
     queryFn: async () => {

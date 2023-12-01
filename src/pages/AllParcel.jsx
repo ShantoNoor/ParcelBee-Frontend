@@ -23,8 +23,10 @@ import { useState } from "react";
 import SelectFormField from "../components/SelectFormField";
 import { DatePicker, MobileDatePicker } from "@mui/x-date-pickers";
 import toast from "react-hot-toast";
+import useTitle from "../hooks/useTitle";
 
 const AllParcel = () => {
+  useTitle("All Parcel");
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);
@@ -197,7 +199,9 @@ const AllParcel = () => {
                   {moment(item.booking_date).utc().format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {moment(item.requested_delivery_date).utc().format("MM/DD/YYYY")}
+                  {moment(item.requested_delivery_date)
+                    .utc()
+                    .format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>{item.price}</TableCell>
                 <TableCell>{item.booking_status}</TableCell>

@@ -19,12 +19,14 @@ import useAuth from "../hooks/useAuth";
 import moment from "moment";
 import { forwardRef, useState } from "react";
 import toast from "react-hot-toast";
+import useTitle from "../hooks/useTitle";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const MyDeliveryList = () => {
+  useTitle("My Delivery List");
   const { user } = useAuth();
 
   const { data, isPending, error } = useQuery({
@@ -93,10 +95,14 @@ const MyDeliveryList = () => {
                 <TableCell>{item.receiver_phone}</TableCell>
                 <TableCell>{item.delivery_address}</TableCell>
                 <TableCell>
-                  {moment(item.requested_delivery_date).utc().format("MM/DD/YYYY")}
+                  {moment(item.requested_delivery_date)
+                    .utc()
+                    .format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {moment(item.approximate_delivery_date).utc().format("MM/DD/YYYY")}
+                  {moment(item.approximate_delivery_date)
+                    .utc()
+                    .format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
                   <Stack direction={"row"} spacing={1}>
@@ -107,7 +113,7 @@ const MyDeliveryList = () => {
                         setText("Deliver");
                         handleClickOpen(item);
                       }}
-                      disabled={item.booking_status !== 'on_the_way'}
+                      disabled={item.booking_status !== "on_the_way"}
                     >
                       Deliver
                     </Button>
@@ -118,14 +124,13 @@ const MyDeliveryList = () => {
                         setText("Cancel");
                         handleClickOpen(item);
                       }}
-                      disabled={item.booking_status !== 'on_the_way'}
+                      disabled={item.booking_status !== "on_the_way"}
                     >
                       Cancel
                     </Button>
-                    <Button 
-                    size="small"
-                    variant="outlined"
-                    >View Location</Button>
+                    <Button size="small" variant="outlined">
+                      View Location
+                    </Button>
                   </Stack>
                 </TableCell>
               </TableRow>

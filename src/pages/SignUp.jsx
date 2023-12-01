@@ -38,6 +38,7 @@ const Player = React.lazy(() =>
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import axios from "axios";
+import useTitle from "../hooks/useTitle";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -52,6 +53,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function SignUp() {
+  useTitle("SignUp");
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);

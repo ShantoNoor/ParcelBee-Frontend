@@ -7,8 +7,10 @@ import { useEffect } from "react";
 import { axiosn } from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import moment from "moment";
+import useTitle from "../hooks/useTitle";
 
 const BookParcel = () => {
+  useTitle("Book Parcel");
   const { user } = useAuth();
 
   const {

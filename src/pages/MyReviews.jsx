@@ -4,8 +4,10 @@ import { axiosn } from "../hooks/useAxios";
 import Spinner from "../components/Spinner";
 import ReviewCard from "../components/ReviewCard";
 import { Grid } from "@mui/material";
+import useTitle from "../hooks/useTitle";
 
 const MyReviews = () => {
+  useTitle("My Reviews");
   const { user } = useAuth();
 
   const { data, isPending, error } = useQuery({
@@ -30,11 +32,13 @@ const MyReviews = () => {
 
   return (
     <Grid container spacing={2}>
-      {data.filter(review => review.rating).map((review) => (
-        <Grid item key={review._id} sm={12} md={6} lg={4}>
-          <ReviewCard data={review} />
-        </Grid>
-      ))}
+      {data
+        .filter((review) => review.rating)
+        .map((review) => (
+          <Grid item key={review._id} sm={12} md={6} lg={4}>
+            <ReviewCard data={review} />
+          </Grid>
+        ))}
     </Grid>
   );
 };

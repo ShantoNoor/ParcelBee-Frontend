@@ -14,8 +14,10 @@ import {
 import Spinner from "../components/Spinner";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import useTitle from "../hooks/useTitle";
 
 const AllUsers = () => {
+  useTitle("All Users");
   const [page, setPage] = useState(0);
 
   const handleChangePage = (event, newPage) => {

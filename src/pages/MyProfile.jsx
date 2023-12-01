@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { axiosn } from "../hooks/useAxios";
 import axios from "axios";
+import useTitle from "../hooks/useTitle";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -30,6 +31,7 @@ const user_options = [
 const admin_options = [{ value: "admin", label: "Admin" }, ...user_options];
 
 const MyProfile = () => {
+  useTitle("My Profile");
   const { user, updateProfile, setUser } = useAuth();
 
   const {
