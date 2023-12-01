@@ -79,7 +79,7 @@ const MyProfile = () => {
     rest._id = user._id;
 
     try {
-      const res = await Promise.all([
+      await Promise.all([
         await updateProfile(rest.name, rest.photo),
         axiosn.put(`/users`, rest),
       ]);

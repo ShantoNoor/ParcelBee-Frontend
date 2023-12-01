@@ -1,13 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosn } from "../hooks/useAxios";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+  Button,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
 
 const AllUsers = () => {
   const {
     isPending,
     error,
     data: users_data,
+    refetch
   } = useQuery({
     queryKey: [`/users_stats`],
     queryFn: async () => {
@@ -32,6 +43,7 @@ const AllUsers = () => {
             <TableCell>Phone Number</TableCell>
             <TableCell>Number of Parcel Booked</TableCell>
             <TableCell>Total Spent Amount</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -41,6 +53,38 @@ const AllUsers = () => {
               <TableCell>{item.phone}</TableCell>
               <TableCell>{item.booked}</TableCell>
               <TableCell>{item.total_price}</TableCell>
+              <TableCell>
+                <Stack direction={"row"} spacing={1}>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={async () => {
+                      await axiosn.put("/users", {
+                        _id: item._id,
+                        status: "delivery_man",
+                      });
+                      toast.success("Operation Successful");
+                      refetch()
+                    }}
+                  >
+                    Make Delivery Man
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={async () => {
+                      await axiosn.put("/users", {
+                        _id: item._id,
+                        status: "admin",
+                      });
+                      toast.success("Operation Successful");
+                      refetch()
+                    }}
+                  >
+                    Make Admin
+                  </Button>
+                </Stack>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

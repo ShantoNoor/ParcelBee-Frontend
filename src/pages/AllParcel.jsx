@@ -135,6 +135,7 @@ const AllParcel = () => {
                 <TableCell>
                   <Button
                     variant="outlined"
+                    size="small"
                     onClick={() => handleClickOpen2(item)}
                     disabled={item.booking_status !== 'pending'}
                   >
