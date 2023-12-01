@@ -72,8 +72,6 @@ function Navbar() {
 
   const navigateHome = () => navigate("/");
 
-  /* TODO: add notifications from db */
-
   const { user } = useAuth();
 
   let [renderPages, setRenderPages] = React.useState([]);

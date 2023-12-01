@@ -1,15 +1,11 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import SearchIcon from "@mui/icons-material/Search";
 import { Container } from "@mui/system";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 
 const Banner = () => {
   const [st, sst] = useState('')
-
-/* TODO: implement parcel show tracing by id */
-
 
   return (
     <Box
@@ -40,7 +36,6 @@ const Banner = () => {
         <Box align="center">
           <Button size="large" variant="contained"
             onClick={() => {
-              // TODO: add code for search 
               console.log(st) 
             }}
           >

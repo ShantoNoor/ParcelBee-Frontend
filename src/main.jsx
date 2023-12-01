@@ -38,8 +38,6 @@ const Statistics = lazy(() => import("./pages/Statistics.jsx"));
 const MyDeliveryList = lazy(() => import("./pages/MyDeliveryList.jsx"));
 const MyReviews = lazy(() => import("./pages/MyReviews.jsx"));
 
-// TODO: Design a error page
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -81,19 +79,20 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<Spinner />}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <LocalizationProvider dateAdapter={AdapterMoment}>
             <RouterProvider router={router}></RouterProvider>
             <CssBaseline />
-          </Suspense>
-        </LocalizationProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-    <Toaster />
+          </LocalizationProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+      <Toaster />
+    </Suspense>
   </React.StrictMode>
 );

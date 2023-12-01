@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import NotListedLocationIcon from "@mui/icons-material/NotListedLocation";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import MailLockIcon from "@mui/icons-material/MailLock";
+import { Divider } from "@mui/material";
 
 const tiers = [
   {
@@ -33,7 +34,11 @@ const tiers = [
 const Features = () => {
   return (
     <Container component="main">
-      <Grid container spacing={5} alignItems="stretch">
+      <Typography mt={4} variant="h2">
+        Our Features
+      </Typography>
+      <Divider />
+      <Grid mt={1} container spacing={5} alignItems="stretch">
         {tiers.map((tier) => (
           <Grid item key={tier.title} xs={12} md={4}>
             <Card>
