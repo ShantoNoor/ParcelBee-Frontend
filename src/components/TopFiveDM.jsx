@@ -32,19 +32,27 @@ const TopFiveDM = () => {
         Our Top Five Delivery Man
       </Typography>
       <Divider />
-      <Grid mt={1} container spacing={5} alignItems="stretch" justifyContent='center'>
+      <Grid
+        mt={1}
+        container
+        spacing={5}
+        alignItems="stretch"
+        justifyContent="center"
+      >
         {data.map((dm) => (
           <Grid item key={dm._id} lg={4} md={6} sm={12} xs={12}>
             <Card sx={{ width: "100%" }}>
               <CardContent>
-                <Stack justifyItems='center' alignItems='center' spacing={1}>
+                <Stack justifyItems="center" alignItems="center" spacing={1}>
                   <Avatar
-                  variant="square"
+                    variant="square"
                     sx={{ bgcolor: deepOrange[500], height: 300, width: 300 }}
                     alt={dm.name}
                     src={dm.photo || dm.name}
                   />
-                  <Typography component='span' variant="h6">{dm.name}</Typography>
+                  <Typography component="span" variant="h6">
+                    {dm.name}
+                  </Typography>
                 </Stack>
                 <Divider />
                 <Stack mt={1} direction={"row"} spacing={1}>

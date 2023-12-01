@@ -18,12 +18,13 @@ import { axiosn } from "../hooks/useAxios";
 import Spinner from "./Spinner";
 
 const FeatureStats = () => {
-  const { data, isPending } = useQuery({
+  const { data, isPending, error } = useQuery({
     queryKey: ["/home_stats"],
     queryFn: async () => (await axiosn.get("/home_stats")).data,
   });
 
   if(isPending) return <Spinner />
+  if (error) return "An error has occurred: " + error.message;
 
   return (
     <Container component="main">

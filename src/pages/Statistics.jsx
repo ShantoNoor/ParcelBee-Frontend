@@ -1,7 +1,58 @@
+import { useState } from "react";
+import Chart from "react-apexcharts";
+import Spinner from "../components/Spinner";
+import { useQuery } from "@tanstack/react-query";
+import { axiosn } from "../hooks/useAxios";
+
 const Statistics = () => {
-  return <div>Statistics</div>;
+  const {
+    data: stats,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["/graph_stats"],
+    queryFn: async () => (await axiosn.get("/graph_stats")).data,
+  });
+
+  const [options, setOptions] = useState({
+    chart: {
+      id: "basic-bar",
+    },
+    xaxis: {
+      title: {
+        text: "Dates (MM-DD-YYYY)",
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Counts",
+      },
+    },
+  });
+
+  console.log(stats);
+
+  if (isPending) return <Spinner />;
+  if (error) return "An error has occurred: " + error.message;
+
+  return (
+    <div className="app">
+      <div className="row">
+        <div className="mixed-chart">
+          <Chart
+            options={options}
+            series={[
+              {
+                data: stats,
+              },
+            ]}
+            type="bar"
+            width="90%"
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Statistics;
-
-// TODO: Use apex chart to show data

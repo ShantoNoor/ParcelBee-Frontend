@@ -27,7 +27,7 @@ const user_options = [
   ...delivery_man_options,
 ];
 
-const admin_options = [{ value: "admin", label: "Admin" }];
+const admin_options = [{ value: "admin", label: "Admin" }, ...user_options];
 
 const MyProfile = () => {
   const { user, updateProfile, setUser } = useAuth();
