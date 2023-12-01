@@ -93,10 +93,10 @@ const MyDeliveryList = () => {
                 <TableCell>{item.receiver_phone}</TableCell>
                 <TableCell>{item.delivery_address}</TableCell>
                 <TableCell>
-                  {moment(item.requested_delivery_date).format("MM/DD/YYYY")}
+                  {moment(item.requested_delivery_date).utc().format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {moment(item.approximate_delivery_date).format("MM/DD/YYYY")}
+                  {moment(item.approximate_delivery_date).utc().format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
                   <Stack direction={"row"} spacing={1}>

@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Divider,
   Stack,
   Table,
   TableBody,
@@ -20,25 +21,38 @@ import Spinner from "../components/Spinner";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import SelectFormField from "../components/SelectFormField";
-import { DatePicker } from "@mui/x-date-pickers";
+import { MobileDatePicker } from "@mui/x-date-pickers";
 import toast from "react-hot-toast";
 
-// TODO: Search System with Date Range
-
 const AllParcel = () => {
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [start, setStart] = useState(null);
+  const [end, setEnd] = useState(null);
+  const [temp, setTemp] = useState(null);
+
   const { isPending, error, data } = useQuery({
-    queryKey: [`/parcels`],
+    queryKey: [`/parcels?start=${start?.format()}&end=${end?.format()}`],
     queryFn: async () => {
+      let str = `/parcels`;
+      if (start && end)
+        str = `/parcels?start=${start?.format()}&end=${end?.format()}`;
+      else if (end) str = `/parcels?end=${end?.format()}`;
+      else if (start) str = `/parcels?start=${start?.format()}`;
       try {
-        const res = await axiosn.get(`/parcels`);
+        const res = await axiosn.get(str);
         return res.data;
       } catch (err) {
         console.error(err);
       }
     },
+    enabled: !isDatePickerOpen,
   });
 
-  const { data: dm_data, isPending:dm_isPending, error:dm_error } = useQuery({
+  const {
+    data: dm_data,
+    isPending: dm_isPending,
+    error: dm_error,
+  } = useQuery({
     queryKey: ["/users", "status=delivery_man"],
     queryFn: async () => {
       const res = (await axiosn.get("/users?status=delivery_man")).data;
@@ -73,7 +87,7 @@ const AllParcel = () => {
   const [item_data2, setItem_data2] = useState(null);
 
   const handleClickOpen2 = (item) => {
-    setValue('delivery_man', item?.delivery_man ? item.delivery_man : '')
+    setValue("delivery_man", item?.delivery_man ? item.delivery_man : "");
     setValue(
       "approximate_delivery_date",
       item?.approximate_delivery_date
@@ -106,6 +120,61 @@ const AllParcel = () => {
 
   return (
     <>
+      <Stack
+        direction={{ sm: "column", md: "row" }}
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+        mb={2}
+      >
+        <MobileDatePicker
+          slotProps={{
+            textField: {
+              variant: "outlined",
+              helperText: "MM/DD/YYYY",
+            },
+          }}
+          label="Select Start Date"
+          value={start}
+          onChange={(newValue) => {
+            setIsDatePickerOpen(true);
+            setTemp(newValue.utc());
+          }}
+          onClose={() => {
+            setStart(temp);
+            setIsDatePickerOpen(false);
+          }}
+        />
+        <MobileDatePicker
+          slotProps={{
+            textField: {
+              variant: "outlined",
+              helperText: "MM/DD/YYYY",
+            },
+          }}
+          label="Select End Date"
+          value={end}
+          onChange={(newValue) => {
+            setIsDatePickerOpen(true);
+            setTemp(newValue.utc());
+          }}
+          onClose={() => {
+            setEnd(temp);
+            setIsDatePickerOpen(false);
+          }}
+        />
+        <Button
+          onClick={() => {
+            setStart(null);
+            setEnd(null);
+          }}
+          variant="outlined"
+        >
+          Reset
+        </Button>
+      </Stack>
+
+      <Divider variant="middle" />
       <TableContainer>
         <Table aria-label="simple table">
           <TableHead>
@@ -125,10 +194,10 @@ const AllParcel = () => {
                 <TableCell>{item.user.name}</TableCell>
                 <TableCell>{item.user.phone}</TableCell>
                 <TableCell>
-                  {moment(item.booking_date).format("MM/DD/YYYY")}
+                  {moment(item.booking_date).utc().format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {moment(item.requested_delivery_date).format("MM/DD/YYYY")}
+                  {moment(item.requested_delivery_date).utc().format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>{item.price}</TableCell>
                 <TableCell>{item.booking_status}</TableCell>
@@ -137,7 +206,7 @@ const AllParcel = () => {
                     variant="outlined"
                     size="small"
                     onClick={() => handleClickOpen2(item)}
-                    disabled={item.booking_status !== 'pending'}
+                    disabled={item.booking_status !== "pending"}
                   >
                     Manage
                   </Button>

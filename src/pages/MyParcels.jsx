@@ -167,13 +167,13 @@ const MyParcels = () => {
               <TableRow key={item._id}>
                 <TableCell>{item.parcel_type}</TableCell>
                 <TableCell>
-                  {moment(item.requested_delivery_date).format("MM/DD/YYYY")}
+                  {moment(item.requested_delivery_date).utc().format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
-                  {item.approximate_delivery_date ? moment(item.approximate_delivery_date).format("MM/DD/YYYY") : "null"}
+                  {item.approximate_delivery_date ? moment(item.approximate_delivery_date).utc().format("MM/DD/YYYY") : "null"}
                 </TableCell>
                 <TableCell>
-                  {moment(item.booking_date).format("MM/DD/YYYY")}
+                  {moment(item.booking_date).utc().format("MM/DD/YYYY")}
                 </TableCell>
                 <TableCell>
                   {item.delivery_man ? item.delivery_man : "null"}

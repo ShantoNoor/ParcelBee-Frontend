@@ -3,11 +3,8 @@ import Spinner from "./Spinner";
 import { axiosn } from "../hooks/useAxios";
 import {
   Avatar,
-  Box,
   Card,
   CardContent,
-  CardHeader,
-  CardMedia,
   Container,
   Divider,
   Grid,
@@ -25,8 +22,6 @@ const TopFiveDM = () => {
       return (await axiosn.get("/delivery_man_top_five")).data;
     },
   });
-
-  console.log(data);
 
   if (isPending) return <Spinner />;
   if (error) return "An error has occurred: " + error.message;
