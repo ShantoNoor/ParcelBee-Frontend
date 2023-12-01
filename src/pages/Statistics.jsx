@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Chart from "react-apexcharts";
 import Spinner from "../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { axiosn } from "../hooks/useAxios";
+import Chart from "react-apexcharts";
 
 const Statistics = () => {
   const {
@@ -30,8 +30,6 @@ const Statistics = () => {
     },
   });
 
-  console.log(stats);
-
   if (isPending) return <Spinner />;
   if (error) return "An error has occurred: " + error.message;
 
@@ -41,11 +39,7 @@ const Statistics = () => {
         <div className="mixed-chart">
           <Chart
             options={options}
-            series={[
-              {
-                data: stats,
-              },
-            ]}
+            series={[{ data: stats }]}
             type="bar"
             width="90%"
           />

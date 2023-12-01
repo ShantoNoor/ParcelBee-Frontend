@@ -114,12 +114,16 @@ export default function SignUp() {
       const res = await signUp(data.name, data.email, data.password);
 
       if (res?.email) {
-        await Promise.all([
+        const result = await Promise.all([
           axiosn.post("/users", data),
           updateProfile(data.name, data.photo),
         ]);
-        toast.dismiss(id);
+
+        data._id = result[0].data._id;
         setUser(data);
+
+        toast.dismiss(id);
+
         navigate("/");
       }
     } catch (err) {

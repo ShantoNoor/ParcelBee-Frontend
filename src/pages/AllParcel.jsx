@@ -92,7 +92,7 @@ const AllParcel = () => {
       "approximate_delivery_date",
       item?.approximate_delivery_date
         ? moment(item?.approximate_delivery_date).utc()
-        : null
+        : moment(item?.requested_delivery_date).utc()
     );
 
     setItem_data2(item);

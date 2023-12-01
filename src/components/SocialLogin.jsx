@@ -3,7 +3,6 @@ import Stack from "@mui/material/Stack";
 import GoogleIcon from "@mui/icons-material/Google";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import { axiosn } from "../hooks/useAxios";
 
 const SocialLogin = () => {
@@ -30,11 +29,12 @@ const SocialLogin = () => {
           try {
             const user = await googlePopUp();
             const data = {
-              name: user.name,
+              name: user.displayName,
               email: user.email,
-              photo: user.photo,
+              photo: user.photoURL,
             };
-            await axiosn.post("/users", data);
+            const result = await axiosn.post("/users", data);
+            setUser(result);
           } catch (err) {
             if (err.response.status !== 409) {
               console.error(err);

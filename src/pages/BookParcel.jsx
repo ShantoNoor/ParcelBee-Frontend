@@ -6,6 +6,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { useEffect } from "react";
 import { axiosn } from "../hooks/useAxios";
 import toast from "react-hot-toast";
+import moment from "moment";
 
 const BookParcel = () => {
   const { user } = useAuth();
@@ -24,13 +25,13 @@ const BookParcel = () => {
       email: user.email,
       phone: user.phone,
       price: 0,
+      requested_delivery_date: moment(Date.now()).utc(),
     },
   });
 
   const formSubmit = async (data) => {
     data.user = user._id;
     data.requested_delivery_date = data.requested_delivery_date.utc().format();
-
     try {
       const res = await axiosn.post("/parcels", data);
       if (res.status === 201) {
