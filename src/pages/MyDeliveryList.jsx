@@ -122,6 +122,10 @@ const MyDeliveryList = () => {
                     >
                       Cancel
                     </Button>
+                    <Button 
+                    size="small"
+                    variant="outlined"
+                    >View Location</Button>
                   </Stack>
                 </TableCell>
               </TableRow>
