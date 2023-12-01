@@ -21,7 +21,7 @@ import Spinner from "../components/Spinner";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import SelectFormField from "../components/SelectFormField";
-import { MobileDatePicker } from "@mui/x-date-pickers";
+import { DatePicker, MobileDatePicker } from "@mui/x-date-pickers";
 import toast from "react-hot-toast";
 
 const AllParcel = () => {
