@@ -38,7 +38,6 @@ const settings = [
   ["Profile", "/dashboard/my-profile"],
   ["Sign Out", "/sign-out"],
 ];
-/* TODO: roll based dashbord and links */
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

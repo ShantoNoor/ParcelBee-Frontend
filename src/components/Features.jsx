@@ -9,14 +9,6 @@ import Container from "@mui/material/Container";
 import NotListedLocationIcon from "@mui/icons-material/NotListedLocation";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import MailLockIcon from "@mui/icons-material/MailLock";
-import PeopleIcon from "@mui/icons-material/People";
-import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-
-import CountUp from "react-countup";
-import Stack from "@mui/material/Stack";
-
-/* TODO: fetch stats from db and show */
 
 const tiers = [
   {
@@ -36,67 +28,7 @@ const tiers = [
     show: <LocalShippingIcon sx={{ fontSize: "5rem" }} />,
     description:
       "Speed redefined. Experience lightning-fast delivery options tailored to your needs. Get your parcels swiftly with our expedited shipping, promising unparalleled efficiency.",
-  },
-  {
-    title: "Total Parcel Booked",
-    show: (
-      <Stack
-        direction={"row"}
-        justifyContent="space-evenly"
-        alignItems="center"
-        spacing={4}
-      >
-        <BookmarkIcon sx={{ fontSize: "56px" }} color="primary" />
-        <CountUp
-          start={0}
-          end={100}
-          // enableScrollSpy={true}
-          scrollSpyOnce={true}
-          duration={2}
-        />
-      </Stack>
-    ),
-  },
-  {
-    title: "Total Parcel Delivered",
-    show: (
-      <Stack
-        direction={"row"}
-        justifyContent="space-evenly"
-        alignItems="center"
-        spacing={4}
-      >
-        <DeliveryDiningIcon sx={{ fontSize: "56px" }} color="primary" />
-        <CountUp
-          start={0}
-          end={50}
-          // enableScrollSpy={true}
-          scrollSpyOnce={true}
-          duration={2}
-        />
-      </Stack>
-    ),
-  },
-  {
-    title: "Total Registered Users",
-    show: (
-      <Stack
-        direction={"row"}
-        justifyContent="space-evenly"
-        alignItems="center"
-        spacing={4}
-      >
-        <PeopleIcon sx={{ fontSize: "56px" }} color="primary" />
-        <CountUp
-          start={0}
-          end={20}
-          // enableScrollSpy={true}
-          scrollSpyOnce={true}
-          duration={2}
-        />
-      </Stack>
-    ),
-  },
+  }
 ];
 const Features = () => {
   return (
@@ -132,11 +64,6 @@ const Features = () => {
                     {tier.show}
                   </Typography>
                 </Box>
-                {tier.description && (
-                  <Typography component="p" variant="body1" align="left">
-                    {tier.description}
-                  </Typography>
-                )}
               </CardContent>
             </Card>
           </Grid>
