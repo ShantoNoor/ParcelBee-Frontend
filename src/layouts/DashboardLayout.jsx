@@ -27,6 +27,9 @@ import PeopleIcon from "@mui/icons-material/People";
 import HailIcon from "@mui/icons-material/Hail";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+
 const drawerWidth = 240;
 
 function DashboardLayout() {
@@ -73,12 +76,12 @@ function DashboardLayout() {
               [
                 "My Delivery List",
                 "/dashboard/my-delivery-list",
-                <BookmarkAddIcon key={1} />,
+                <FormatListBulletedIcon key={1} />,
               ],
               [
                 "My Reviews",
                 "/dashboard/my-reviews",
-                <BookmarksIcon key={2} />,
+                <ReviewsIcon key={2} />,
               ],
             ]}
             setTitle={setTitle}
