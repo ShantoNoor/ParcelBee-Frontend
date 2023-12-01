@@ -3,3 +3,5 @@ const Statistics = () => {
 };
 
 export default Statistics;
+
+// TODO: Use apex chart to show data

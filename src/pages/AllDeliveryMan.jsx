@@ -12,9 +12,9 @@ import Spinner from "../components/Spinner";
 
 const AllDeliveryMan = () => {
   const { data, isPending, error } = useQuery({
-    queryKey: ["/users/delivery_man"],
+    queryKey: ["/delivery_man_stats"],
     queryFn: async () => {
-      return (await axiosn.get("/users/delivery_man")).data;
+      return (await axiosn.get("/delivery_man_stats")).data;
     },
   });
 
@@ -28,8 +28,8 @@ const AllDeliveryMan = () => {
           <TableRow>
             <TableCell>Delivery Man Name</TableCell>
             <TableCell>Phone Number</TableCell>
-            <TableCell>Number of parcel delivered</TableCell>
-            <TableCell>Average review</TableCell>
+            <TableCell>Number of Parcel Delivered</TableCell>
+            <TableCell>Average Review</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

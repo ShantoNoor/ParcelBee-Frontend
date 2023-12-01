@@ -37,7 +37,7 @@ const SocialLogin = () => {
             await axiosn.post("/users", data);
           } catch (err) {
             if (err.response.status !== 409) {
-              console.log(err);
+              console.error(err);
             }
           } finally {
             redirectAfterLogin();

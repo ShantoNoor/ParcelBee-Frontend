@@ -84,8 +84,6 @@ const MyProfile = () => {
         axiosn.put(`/users`, rest),
       ]);
 
-      console.log(res);
-
       setUser({ ...rest });
     } catch (err) {
       console.error(err);

@@ -23,6 +23,8 @@ import SelectFormField from "../components/SelectFormField";
 import { DatePicker } from "@mui/x-date-pickers";
 import toast from "react-hot-toast";
 
+// TODO: Search System with Date Range
+
 const AllParcel = () => {
   const { isPending, error, data } = useQuery({
     queryKey: [`/parcels`],
@@ -36,7 +38,7 @@ const AllParcel = () => {
     },
   });
 
-  const { data: dm_data } = useQuery({
+  const { data: dm_data, isPending:dm_isPending, error:dm_error } = useQuery({
     queryKey: ["/users", "status=delivery_man"],
     queryFn: async () => {
       const res = (await axiosn.get("/users?status=delivery_man")).data;
@@ -99,8 +101,8 @@ const AllParcel = () => {
     handleClose2();
   };
 
-  if (isPending) return <Spinner />;
-  if (error) return "An error has occurred: " + error.message;
+  if (isPending || dm_isPending) return <Spinner />;
+  if (error || dm_error) return "An error has occurred: " + error.message;
 
   return (
     <>
