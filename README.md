@@ -1,12 +1,17 @@
-# Features
-## User Dashboard:
+# ParcelBee
+
+## Live Link
+https://parcelbee-47aa9.web.app/
+
+## Features
+### User Dashboard:
 
 - Book a Parcel: Users can fill out a form to book parcels with details such as parcel type, weight, receiver's information, etc.
 My Parcels: Users can view a list of their booked parcels, check status, update, cancel, review.
 
 - My Profile: Users can view and update their profile information including profile picture upload.
 
-## Admin Dashboard:
+### Admin Dashboard:
 
 - Statistics: Display app usage data using charts (bar chart for bookings by date).
 
@@ -16,7 +21,7 @@ My Parcels: Users can view a list of their booked parcels, check status, update,
 
 - All Users: Admin can view all registered users, their statistics, and change user roles.
 
-## Delivery Men's Dashboard:
+### Delivery Men's Dashboard:
 
 - My Delivery List: Display parcels assigned to the logged-in delivery man, allow cancellation and delivery updates.
 
