@@ -26,3 +26,10 @@ My Parcels: Users can view a list of their booked parcels, check status, update,
 - My Delivery List: Display parcels assigned to the logged-in delivery man, allow cancellation and delivery updates.
 
 - My Reviews: Show reviews received from users, including ratings and feedback.
+
+## Technology
+- ReactJS, ExpressJS
+- MUI
+
+## Backend Repo
+https://github.com/ShantoNoor/ParcelBee-Backend
