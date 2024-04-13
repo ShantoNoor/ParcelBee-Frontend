@@ -31,6 +31,7 @@ const SignIn = lazy(() => import("./pages/SignIn.jsx"));
 const SignUp = lazy(() => import("./pages/SignUp.jsx"));
 const SignOut = lazy(() => import("./pages/SignOut.jsx"));
 
+const Home = lazy(() => import("./pages/Home.jsx"));
 const MyProfile = lazy(() => import("./pages/MyProfile.jsx"));
 const MyParcels = lazy(() => import("./pages/MyParcels.jsx"));
 const BookParcel = lazy(() => import("./pages/BookParcel.jsx"));
@@ -42,12 +43,21 @@ const Statistics = lazy(() => import("./pages/Statistics.jsx"));
 const MyDeliveryList = lazy(() => import("./pages/MyDeliveryList.jsx"));
 const MyReviews = lazy(() => import("./pages/MyReviews.jsx"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage.jsx"));
+const ContactUs = lazy(() => import("./pages/ContactUs.jsx"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/", element: <Home />
+      },
+      {
+        path: "/contact-us", element: <ContactUs />
+      }
+    ]
   },
   {
     path: "/dashboard",

@@ -26,6 +26,7 @@ const logoText = "ParcelBee";
 const pages = [
   ["Home", "/"],
   ["Dashboard", "/dashboard"],
+  ["Contact Us", "/contact-us"],
 ];
 
 const authPages = [
