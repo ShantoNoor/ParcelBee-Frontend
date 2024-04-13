@@ -6,7 +6,7 @@ import TopFiveDM from "../components/TopFiveDM";
 import useTitle from "../hooks/useTitle";
 
 const Home = () => {
-  useTitle('Home | Parcel Bee')
+  useTitle('Home')
   return (
     <>
       <Banner />

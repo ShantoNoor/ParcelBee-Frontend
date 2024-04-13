@@ -63,7 +63,7 @@ const TopFiveDM = () => {
                     fontSize={"18px"}
                     align="left"
                   >
-                    Percel Delivered: {dm.delivered}
+                    Parcel Delivered: {dm.delivered}
                   </Typography>
                 </Stack>
                 <Stack direction={"row"} spacing={0.5}>
