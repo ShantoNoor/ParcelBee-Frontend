@@ -41,11 +41,13 @@ const AllDeliveryMan = lazy(() => import("./pages/AllDeliveryMan.jsx"));
 const Statistics = lazy(() => import("./pages/Statistics.jsx"));
 const MyDeliveryList = lazy(() => import("./pages/MyDeliveryList.jsx"));
 const MyReviews = lazy(() => import("./pages/MyReviews.jsx"));
+const ErrorPage = lazy(() => import("./pages/ErrorPage.jsx"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/dashboard",
