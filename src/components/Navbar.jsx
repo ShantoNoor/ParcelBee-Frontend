@@ -11,8 +11,6 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import Divider from "@mui/material/Divider";
@@ -20,18 +18,18 @@ import NotificationList from "./NotificationList";
 import useAuth from "../hooks/useAuth";
 import UserAvater from "./UserAvater";
 
-const LogoIcon = styled(ShoppingBagIcon)();
+import Icon from "/favicon-32x32.png";
+
+const LogoIcon = (props) => <Box {...props}><img src={Icon} /></Box>;
 const logoText = "ParcelBee";
 
 const pages = [
   ["Home", "/"],
-  ["Dashboard", "/dashboard"],
   ["Contact Us", "/contact-us"],
 ];
 
 const authPages = [
   ["Sing In", "/sign-in"],
-  ["Sing Up", "/sign-up"],
 ];
 
 const settings = [
@@ -79,7 +77,9 @@ function Navbar() {
 
   React.useEffect(() => {
     if (user) {
-      setRenderPages([...pages]);
+      setRenderPages([...pages, 
+        ["Dashboard", "/dashboard"],
+      ]);
     } else {
       setRenderPages([...pages, ...authPages]);
     }

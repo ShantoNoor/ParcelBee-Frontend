@@ -34,7 +34,7 @@ const tiers = [
 const Features = () => {
   return (
     <Container component="main">
-      <Typography mt={4} variant="h2">
+      <Typography mt={4} variant="h2" component="h2" fontWeight="bold">
         Our Features
       </Typography>
       <Divider />

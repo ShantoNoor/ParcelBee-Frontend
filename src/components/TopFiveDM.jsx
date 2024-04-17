@@ -27,8 +27,8 @@ const TopFiveDM = () => {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <Container component="main">
-      <Typography mt={4} variant="h2">
+    <Container component="main" sx={{marginTop: "8rem"}}>
+      <Typography mt={4} variant="h2" component="h2" fontWeight="bold">
         Our Top Five Delivery Man
       </Typography>
       <Divider />
